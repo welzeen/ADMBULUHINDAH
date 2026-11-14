@@ -1,70 +1,73 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Laporan Gudang Buluh Indah</title><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Laporan Gudang Buluh Indah</title><meta name="theme-color" content="#a8101a"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Gudang BI"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23a8101a%27/%3E%3Cpath d=%27M7 11l9-4 9 4v10l-9 4-9-4z M7 11l9 4 9-4 M16 15v10%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%271.8%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E"><style>:root{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap">
 <style>
-/* Layout: sidebar merah berikon + konten kartu; di ponsel sidebar menjadi menu bawah. */
+/* Gudang Buluh Indah: abu beton + merah Gramedia, huruf kondensed ala label pengiriman.
+   Desktop: rel samping penuh. Ponsel: menu bawah, tabel jadi kartu, tombol tambah mengambang, formulir naik dari bawah. */
 :root{
-  --bg:#f4f2f1; --surface:#ffffff; --fg:#1d1716; --muted:#6b615e; --line:#e9e3e1; --line2:#f1ecea;
-  --red:#c4161f; --btn:#c4161f; --btn-fg:#ffffff; --red-soft:#fbe9ea; --side:#b0121a; --side-fg:#ffffff;
-  --ok:#1b7443; --ok-bg:#e1f2e8; --ok-fill:#2e9e5f;
-  --warn:#7d5200; --warn-bg:#fdefc4; --warn-fill:#d99a14;
-  --bad:#a8241c; --bad-bg:#fbe3e1; --bad-fill:#d6453d;
-  --in:#8b807d; --track:#ebe6e4; --head:#faf8f7;
-  --sh:0 1px 2px rgba(40,20,18,.05),0 8px 20px rgba(40,20,18,.045);
-  --font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-  --font-head:'Space Grotesk','Inter',system-ui,sans-serif;
+  --bg:#eceff1; --surface:#ffffff; --fg:#14171a; --muted:#5d6670; --line:#d9dee2; --line2:#e8ecef;
+  --red:#c4161f; --btn:#c4161f; --btn-fg:#ffffff; --red-soft:#fdeaec; --side:#a8101a; --side-fg:#ffffff;
+  --ok:#17653a; --ok-bg:#dff1e6; --ok-fill:#2a9a5b;
+  --warn:#7a4f00; --warn-bg:#fbeabd; --warn-fill:#d9961a;
+  --bad:#a3221b; --bad-bg:#fbe2e0; --bad-fill:#d4443c;
+  --in:#7b8691; --track:#e3e8ec; --head:#f5f7f8; --sh:none;
+  --font-body:'Barlow',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-head:'Barlow Condensed','Barlow',system-ui,sans-serif;
+  --safe-b:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#141010; --surface:#1e1919; --fg:#f2ecea; --muted:#a99d9a; --line:#352d2d; --line2:#2b2424;
-    --red:#f0535b; --btn:#cf2a33; --btn-fg:#ffffff; --red-soft:#3b1d20; --side:#8c1119; --side-fg:#ffffff;
-    --ok:#74d69d; --ok-bg:#15301f; --ok-fill:#3aa86a;
-    --warn:#f2c24e; --warn-bg:#362a09; --warn-fill:#c9971f;
-    --bad:#ff8f88; --bad-bg:#3b1a18; --bad-fill:#e0605a;
-    --in:#a79b98; --track:#332b2a; --head:#251f1f; --sh:none; color-scheme:dark;
+    --bg:#0e1012; --surface:#171a1d; --fg:#eef1f3; --muted:#98a2ab; --line:#2a3036; --line2:#21262b;
+    --red:#ff6a72; --btn:#cf2a33; --btn-fg:#ffffff; --red-soft:#3a1c1f; --side:#7e0e16; --side-fg:#ffffff;
+    --ok:#6fd69b; --ok-bg:#12301f; --ok-fill:#36a766;
+    --warn:#f0c04c; --warn-bg:#34290a; --warn-fill:#c9971f;
+    --bad:#ff918a; --bad-bg:#3a1a18; --bad-fill:#de5f58;
+    --in:#8a95a0; --track:#2a3036; --head:#1c2024; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#141010; --surface:#1e1919; --fg:#f2ecea; --muted:#a99d9a; --line:#352d2d; --line2:#2b2424;
-  --red:#f0535b; --btn:#cf2a33; --btn-fg:#ffffff; --red-soft:#3b1d20; --side:#8c1119; --side-fg:#ffffff;
-  --ok:#74d69d; --ok-bg:#15301f; --ok-fill:#3aa86a;
-  --warn:#f2c24e; --warn-bg:#362a09; --warn-fill:#c9971f;
-  --bad:#ff8f88; --bad-bg:#3b1a18; --bad-fill:#e0605a;
-  --in:#a79b98; --track:#332b2a; --head:#251f1f; --sh:none; color-scheme:dark;
+  --bg:#0e1012; --surface:#171a1d; --fg:#eef1f3; --muted:#98a2ab; --line:#2a3036; --line2:#21262b;
+  --red:#ff6a72; --btn:#cf2a33; --btn-fg:#ffffff; --red-soft:#3a1c1f; --side:#7e0e16; --side-fg:#ffffff;
+  --ok:#6fd69b; --ok-bg:#12301f; --ok-fill:#36a766;
+  --warn:#f0c04c; --warn-bg:#34290a; --warn-fill:#c9971f;
+  --bad:#ff918a; --bad-bg:#3a1a18; --bad-fill:#de5f58;
+  --in:#8a95a0; --track:#2a3036; --head:#1c2024; color-scheme:dark;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:14px;line-height:1.5;
-  padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--font-head);margin:0;text-wrap:balance;letter-spacing:-.015em}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:15px;line-height:1.5;-webkit-tap-highlight-color:transparent}
+h1,h2,h3{font-family:var(--font-head);margin:0;text-wrap:balance;letter-spacing:0}
 button,input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--red);outline-offset:2px}
-.ic{width:18px;height:18px;flex:0 0 auto;display:block}
-.app{display:grid;grid-template-columns:244px minmax(0,1fr);gap:28px;max-width:1320px;margin:0 auto;align-items:start}
+.ic{width:20px;height:20px;flex:0 0 auto;display:block}
+.app{display:grid;grid-template-columns:236px minmax(0,1fr);min-height:100vh}
 
-/* sidebar */
-.side{background:var(--side);color:var(--side-fg);border-radius:18px;padding:18px 12px 14px;position:sticky;top:20px;display:flex;flex-direction:column;gap:22px;z-index:20}
-.brand{display:flex;align-items:center;gap:11px;padding:2px 8px 16px;border-bottom:1px solid rgba(255,255,255,.18)}
-.brand b{font-family:var(--font-head);font-size:17px;line-height:1.15;display:block}
-.brand span.k{font-size:11px;opacity:.8;letter-spacing:.08em;text-transform:uppercase}
-.logo{width:36px;height:36px;border-radius:10px;background:#fff;color:#b0121a;display:grid;place-items:center;flex:0 0 auto}
-.logo .ic{width:20px;height:20px}
-.nav{display:flex;flex-direction:column;gap:3px}
-.nav a{color:inherit;text-decoration:none;padding:10px 11px;border-radius:10px;font-weight:500;display:flex;align-items:center;gap:11px;opacity:.9}
+/* rel samping */
+.side{background:var(--side);color:var(--side-fg);position:sticky;top:0;height:100vh;align-self:start;display:flex;flex-direction:column;gap:18px;padding:22px 14px 18px;z-index:20}
+.brand{display:flex;align-items:center;gap:12px;padding:0 8px 18px;border-bottom:1px solid rgba(255,255,255,.2)}
+.brand b{font-family:var(--font-head);font-size:22px;font-weight:700;line-height:1.05;display:block}
+.brand span.k{font-size:12px;opacity:.8}
+.logo{width:40px;height:40px;border-radius:8px;background:#fff;color:#a8101a;display:grid;place-items:center;flex:0 0 auto}
+.logo .ic{width:22px;height:22px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav a{color:inherit;text-decoration:none;padding:11px 12px;border-radius:8px;font-weight:500;font-size:15px;display:flex;align-items:center;gap:12px;opacity:.92}
 .nav a:hover{background:rgba(255,255,255,.14);opacity:1}
-.nav a[aria-current="page"]{background:#fff;color:#a40f17;opacity:1;font-weight:600}
+.nav a[aria-current="page"]{background:#fff;color:#a8101a;opacity:1;font-weight:600}
 .nav .sl{display:none}
 
-/* header */
-.main{min-width:0;display:flex;flex-direction:column;gap:20px}
-.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px}
+/* kepala halaman */
+.main{min-width:0;display:flex;flex-direction:column;gap:18px}
+.app>.main{padding:30px 32px 56px;max-width:1240px;width:100%}
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 16px}
 .th{min-width:0}
-.top h1{font-size:28px;font-weight:700}
-.top p{margin:3px 0 0;color:var(--muted)}
+.top h1{font-size:38px;font-weight:700;line-height:1.05}
+.top p{margin:4px 0 0;color:var(--muted)}
 .tr{display:flex;flex-wrap:wrap;gap:8px}
 .mbrand{display:none;align-items:center;gap:10px;width:100%}
-.mbrand .logo{width:32px;height:32px;background:var(--btn);color:#fff}
-.mbrand b{font-family:var(--font-head);font-size:16px}
-.chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;padding:5px 12px;border-radius:99px;background:var(--surface);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.mbrand .logo{width:34px;height:34px;background:var(--btn);color:#fff}
+.mbrand b{font-family:var(--font-head);font-size:21px;font-weight:700}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:5px 12px;border-radius:99px;background:var(--surface);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
 .chip.ok::before,.chip.wn::before,.chip.bd::before{content:"";width:8px;height:8px;border-radius:50%}
 .chip.ok::before{background:var(--ok-fill)}
 .chip.wn::before{background:var(--warn-fill)}
@@ -72,26 +75,30 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 /* ringkasan */
 .sec{display:flex;flex-direction:column;gap:12px}
-.sec>h2{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:12px;font-family:var(--font-body)}
+.sec>h2{font-size:19px;font-weight:600;display:flex;align-items:center;gap:14px}
 .sec>h2::after{content:"";flex:1;height:1px;background:var(--line)}
-.banner{display:flex;align-items:center;gap:22px;background:var(--btn);color:#fff;border-radius:18px;padding:20px 26px;box-shadow:var(--sh)}
-.ring{width:92px;height:92px;flex:0 0 auto;display:block}
+.banner{position:relative;overflow:hidden;display:flex;align-items:center;gap:26px;background:var(--btn);color:#fff;border-radius:14px;padding:26px 30px 32px}
+.banner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;background:repeating-linear-gradient(-45deg,rgba(255,255,255,.4) 0 9px,transparent 9px 18px)}
+.ring{width:112px;height:112px;flex:0 0 auto;display:block}
 .rg-t{fill:none;stroke:rgba(255,255,255,.25);stroke-width:9}
 .rg-f{fill:none;stroke:#fff;stroke-width:9;stroke-linecap:round}
-.rg-n{fill:#fff;font-family:var(--font-head);font-size:20px;font-weight:600}
+.rg-n{fill:#fff;font-family:var(--font-head);font-size:23px;font-weight:700}
 .bn-txt{min-width:0}
-.bn-l{font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.85}
-.bn-v{font-family:var(--font-head);font-size:34px;font-weight:600;line-height:1.15;margin-top:2px;font-variant-numeric:tabular-nums}
-.bn-v small{font-family:var(--font-body);font-size:14px;font-weight:500;opacity:.9;margin-left:8px}
-.bn-s{font-size:13px;opacity:.9;margin-top:4px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(176px,1fr));gap:12px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0;position:relative;box-shadow:var(--sh)}
-.card .l{font-size:12px;color:var(--muted);font-weight:500;padding-right:42px}
-.card .v{font-family:var(--font-head);font-size:32px;font-weight:600;line-height:1.15;margin-top:8px;font-variant-numeric:tabular-nums}
-.card .v small{font-family:var(--font-body);font-size:13px;font-weight:500;color:var(--muted);margin-left:5px}
-.card .s{font-size:12px;color:var(--muted);margin-top:3px}
-.card.mini .v{font-size:26px}
-.ico{position:absolute;top:13px;right:13px;width:34px;height:34px;border-radius:10px;display:grid;place-items:center}
+.bn-l{font-size:14px;font-weight:500;opacity:.9}
+.bn-v{font-family:var(--font-head);font-size:56px;font-weight:700;line-height:1;margin-top:4px;font-variant-numeric:tabular-nums}
+.bn-v small{font-family:var(--font-body);font-size:15px;font-weight:500;opacity:.92;margin-left:10px}
+.bn-s{font-size:14px;opacity:.92;margin-top:8px}
+
+/* strip angka: satu blok bersekat, bukan kartu terpisah */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(176px,1fr));background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.card{background:var(--surface);padding:16px 18px 15px;min-width:0;position:relative;box-shadow:1px 0 0 var(--line),0 1px 0 var(--line)}
+.card .l{font-size:13px;color:var(--muted);font-weight:500;padding-right:36px}
+.card .v{font-family:var(--font-head);font-size:40px;font-weight:700;line-height:1.05;margin-top:8px;font-variant-numeric:tabular-nums}
+.card .v small{font-family:var(--font-body);font-size:13px;font-weight:500;color:var(--muted);margin-left:6px}
+.card .s{font-size:13px;color:var(--muted);margin-top:3px}
+.card.mini .v{font-size:34px}
+.ico{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:7px;display:grid;place-items:center}
+.ico .ic{width:17px;height:17px}
 .t-r{background:var(--red-soft);color:var(--red)}
 .t-g{background:var(--ok-bg);color:var(--ok)}
 .t-a{background:var(--warn-bg);color:var(--warn)}
@@ -99,31 +106,31 @@ button,input,select,textarea{font:inherit;color:inherit}
 .t-b{background:var(--track);color:var(--muted)}
 
 /* bar dan panel */
-.bar{height:8px;border-radius:99px;background:var(--track);overflow:hidden}
+.bar{height:9px;border-radius:99px;background:var(--track);overflow:hidden}
 .bar i{display:block;height:100%;background:var(--ok-fill);border-radius:99px}
 i.f-selesai{background:var(--ok-fill)}
 i.f-proses{background:var(--warn-fill)}
 i.f-belum{background:var(--bad-fill)}
 i.f-in{background:var(--in)}
 .panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0;box-shadow:var(--sh)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;min-width:0}
 .panel.wide{grid-column:1/-1}
-.panel h2{font-size:16px;margin-bottom:12px;font-weight:600}
-.panel .sub{color:var(--muted);font-size:13px;margin:-6px 0 14px}
+.panel h2{font-size:21px;margin-bottom:12px;font-weight:600}
+.panel .sub{color:var(--muted);font-size:14px;margin:-6px 0 14px}
 .prow{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;padding:7px 0}
 .prow .d{font-variant-numeric:tabular-nums;font-weight:600}
-.prow .n{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
-.lrow{display:grid;grid-template-columns:130px minmax(0,1fr) 92px;gap:12px;align-items:center;padding:7px 0}
-.lrow .n{font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
-.arow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;justify-content:space-between;padding:11px 0;border-top:1px solid var(--line2)}
+.prow .n{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lrow{display:grid;grid-template-columns:140px minmax(0,1fr) 96px;gap:12px;align-items:center;padding:7px 0}
+.lrow .n{font-size:14px;text-align:right;font-variant-numeric:tabular-nums}
+.arow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line2)}
 .arow:first-of-type{border-top:0;padding-top:2px}
 .arow b{font-variant-numeric:tabular-nums}
-.arow .m,.m{color:var(--muted);font-size:12px}
-.stack{display:flex;height:16px;border-radius:99px;overflow:hidden;background:var(--track)}
+.arow .m,.m{color:var(--muted);font-size:13px}
+.stack{display:flex;height:18px;border-radius:99px;overflow:hidden;background:var(--track)}
 .stack i{display:block;height:100%}
-.keys{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 0 0;font-size:13px}
+.keys{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 0 0;font-size:14px}
 .keys span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;background:var(--k)}
-.chartwrap{overflow-x:auto}
+.chartwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .chartwrap svg{display:block;width:100%;min-width:560px;height:auto}
 .chartwrap .ax{fill:var(--muted);font-size:10px;font-family:var(--font-body)}
 .chartwrap .axb{fill:var(--fg);font-size:10px;font-weight:700;font-family:var(--font-body)}
@@ -132,29 +139,32 @@ i.f-in{background:var(--in)}
 .chartwrap .c-out{fill:var(--ok-fill)}
 
 /* toolbar dan tombol */
-.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:var(--sh)}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.fld{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);min-width:0;font-weight:500}
-.fld input,.fld select,.fld textarea,.form input,.form select,.form textarea{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 11px;color:var(--fg);font-size:14px;min-width:0;width:100%}
+.exp{display:flex;flex-wrap:wrap;gap:8px}
+.fld{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);min-width:0;font-weight:500}
+.fld input,.fld select,.fld textarea,.form input,.form select,.form textarea{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--fg);font-size:15px;min-width:0;width:100%}
 .fld input:focus,.form input:focus,.form select:focus,.form textarea:focus,.fld select:focus{border-color:var(--red);outline:none;box-shadow:0 0 0 3px var(--red-soft)}
 .fld.grow{flex:1 1 220px}
-.fld.sm{flex:0 1 156px}
+.fld.sm{flex:0 1 160px}
 .sp{flex:1 1 0}
-.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:500;cursor:pointer;white-space:nowrap}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px 15px;font-weight:500;font-size:14px;cursor:pointer;white-space:nowrap;min-height:40px}
 .btn:hover{background:var(--head);border-color:var(--in)}
 .btn[aria-pressed="true"]{background:var(--red-soft);border-color:var(--red);color:var(--red);font-weight:600}
-.btn.primary{background:var(--btn);border-color:var(--btn);color:var(--btn-fg);font-weight:600;box-shadow:0 2px 6px rgba(176,18,26,.28)}
+.btn.primary{background:var(--btn);border-color:var(--btn);color:var(--btn-fg);font-weight:600}
 .btn.primary:hover{filter:brightness(1.08)}
-.btn.primary[data-act="add"]::before,.btn.primary[data-act="padd"]::before{content:"+";font-weight:700;margin-right:7px}
+.btn.primary[data-act="add"]::before,.btn.primary[data-act="padd"]::before{content:"+";font-weight:700;font-size:18px;line-height:1;margin-right:7px}
 .btn[data-exp]::before{content:"↓";margin-right:6px;color:var(--muted)}
 .btn.danger{color:var(--bad);border-color:var(--bad)}
-.btn.sm{padding:5px 10px;font-size:12px;border-radius:8px}
+.btn.sm{padding:6px 11px;font-size:13px;border-radius:7px;min-height:34px}
 
 /* tabel */
-.tablewrap{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow-x:auto;box-shadow:var(--sh)}
+.tablewrap{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{border-collapse:collapse;width:100%;min-width:780px}
-th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:middle}
-th{background:var(--head);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;white-space:nowrap;border-bottom:1px solid var(--line)}
+th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:middle}
+th{background:var(--head);font-size:13px;line-height:1.25;color:var(--muted);font-weight:600;vertical-align:bottom;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{padding-left:16px}
+th:last-child,td:last-child{padding-right:16px}
 th button{all:unset;cursor:pointer}
 th button:focus-visible{outline:2px solid var(--red)}
 td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
@@ -162,65 +172,150 @@ td.lf{color:var(--bad);font-weight:600}
 tbody tr:hover{background:var(--head)}
 tbody tr:last-child td{border-bottom:0}
 tfoot td{font-weight:600;background:var(--head);border-top:1px solid var(--line);border-bottom:0}
-td .note{display:block;font-size:12px;color:var(--muted);max-width:230px}
-.mp{margin-top:6px;height:4px;width:84px;border-radius:99px;background:var(--track);overflow:hidden}
+td .note{display:block;font-size:13px;color:var(--muted);max-width:230px}
+.mp{margin-top:6px;height:5px;width:84px;border-radius:99px;background:var(--track);overflow:hidden}
 .mp i{display:block;height:100%;border-radius:99px}
-.tag{font-size:11px;background:var(--red-soft);color:var(--red);padding:1px 8px;border-radius:99px;margin-left:8px;font-weight:600}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 11px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.tag{font-size:12px;background:var(--red-soft);color:var(--red);padding:1px 8px;border-radius:99px;margin-left:8px;font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 11px;border-radius:99px;font-size:13px;font-weight:600;white-space:nowrap}
 .pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .st-selesai{background:var(--ok-bg);color:var(--ok)}
 .st-proses{background:var(--warn-bg);color:var(--warn)}
 .st-belum{background:var(--bad-bg);color:var(--bad)}
 .acts{display:flex;gap:6px;justify-content:flex-end;white-space:nowrap;align-items:center}
-.empty{padding:40px 16px;text-align:center;color:var(--muted)}
-.hint{color:var(--muted);font-size:13px;margin:0}
+.empty{padding:44px 16px;text-align:center;color:var(--muted)}
+.hint{color:var(--muted);font-size:14px;margin:0}
 .legend{display:flex;flex-wrap:wrap;gap:8px 14px}
 .set{display:flex;flex-direction:column;gap:16px}
 .setrow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--line2)}
 .setrow:first-of-type{border-top:0;padding-top:0}
-.setrow p{margin:0;max-width:52ch}
-.setrow b{display:block}
+.setrow p{margin:0;max-width:56ch}
+.setrow b{display:block;font-size:16px}
 
-/* form */
-.overlay{position:fixed;inset:0;background:rgba(20,10,10,.55);display:flex;align-items:flex-start;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));overflow-y:auto;z-index:30}
-.sheet{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;width:100%;max-width:540px;margin:auto;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
-.sheet h2{font-size:21px}
-.form label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted);min-width:0;font-weight:500}
+/* formulir */
+.overlay{position:fixed;inset:0;background:rgba(10,12,14,.55);display:flex;align-items:flex-start;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));overflow-y:auto;z-index:30}
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;width:100%;max-width:560px;margin:auto;display:flex;flex-direction:column;gap:14px;box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.sheet h2{font-size:28px;font-weight:700}
+.form label{display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--muted);min-width:0;font-weight:500}
 .g2,.g3{display:grid;gap:12px}
 .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.err{color:var(--bad);background:var(--bad-bg);border-radius:10px;padding:9px 12px;margin:0}
-.info{background:var(--head);border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin:0;font-size:13px;color:var(--fg)}
+.err{color:var(--bad);background:var(--bad-bg);border-radius:8px;padding:10px 12px;margin:0}
+.info{background:var(--head);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:0;font-size:14px;color:var(--fg)}
 .actions{display:flex;justify-content:flex-end;gap:8px}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(22px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:10px 18px;border-radius:12px;z-index:40;max-width:90vw;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + var(--safe-b));background:var(--fg);color:var(--bg);padding:11px 18px;border-radius:10px;z-index:40;max-width:90vw;text-align:center;box-shadow:0 10px 28px rgba(0,0,0,.28)}
 
+/* ---- tablet dan ponsel ---- */
 @media (max-width:860px){
-  body{padding-block:16px 92px}
-  .app{grid-template-columns:minmax(0,1fr);gap:16px}
-  .side{position:fixed;left:0;right:0;bottom:0;top:auto;border-radius:0;padding:6px max(6px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(6px,env(safe-area-inset-left,0px));background:var(--surface);color:var(--muted);border-top:1px solid var(--line);gap:0;box-shadow:0 -6px 20px rgba(0,0,0,.07)}
+  .app{grid-template-columns:minmax(0,1fr)}
+  .app>.main{padding:16px max(14px,env(safe-area-inset-right,0px)) calc(96px + var(--safe-b)) max(14px,env(safe-area-inset-left,0px));gap:14px}
+  .side{position:fixed;left:0;right:0;bottom:0;top:auto;height:auto;align-self:auto;padding:4px max(4px,env(safe-area-inset-right,0px)) calc(4px + var(--safe-b)) max(4px,env(safe-area-inset-left,0px));background:var(--surface);color:var(--muted);border-top:1px solid var(--line);gap:0;box-shadow:0 -8px 24px rgba(0,0,0,.08)}
   .brand{display:none}
   .nav{flex-direction:row;width:100%;gap:2px}
-  .nav a{flex:1 1 0;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:7px 2px;font-size:10.5px;text-align:center;opacity:1;color:var(--muted);border-radius:10px;font-weight:500}
+  .nav a{flex:1 1 0;min-width:0;position:relative;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:9px 2px 7px;font-size:11px;text-align:center;opacity:1;color:var(--muted);border-radius:8px;font-weight:500}
   .nav a:hover{background:var(--head)}
-  .nav a[aria-current="page"]{background:var(--red-soft);color:var(--red);font-weight:600}
+  .nav a[aria-current="page"]{background:transparent;color:var(--red);font-weight:600}
+  .nav a[aria-current="page"]::before{content:"";position:absolute;top:0;left:22%;right:22%;height:3px;border-radius:0 0 3px 3px;background:var(--red)}
   .nav .lb{display:none}
   .nav .sl{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
   .mbrand{display:flex}
-  .top h1{font-size:23px}
-  .toast{bottom:calc(86px + env(safe-area-inset-bottom,0px))}
+  .top{align-items:flex-start;gap:8px}
+  .top h1{font-size:32px}
+  .top p{font-size:14px}
+  .toast{bottom:calc(88px + var(--safe-b))}
+  /* tombol tambah mengambang */
+  .btn.primary[data-act="add"],.btn.primary[data-act="padd"]{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(80px + var(--safe-b));z-index:25;border-radius:99px;padding:0 22px;min-height:52px;font-size:16px;box-shadow:0 8px 22px rgba(196,22,31,.45)}
 }
-@media (max-width:560px){
-  .g3,.g2{grid-template-columns:minmax(0,1fr)}
-  .banner{flex-direction:column;align-items:flex-start;gap:12px;padding:18px}
-  .bn-v{font-size:28px}
-  .card .v{font-size:28px}
+@media (max-width:700px){
+  body{font-size:16px}
+  .tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 10px;padding:12px}
+  .tools .fld{font-size:12px;gap:3px}
+  #dnow{display:none}
+  .tools .fld.grow,.tools .chips,.tools .exp,.tools .fld[for="st"]{grid-column:1/-1}
+  .tools .fld.sm{flex:none}
+  .tools .sp{display:none}
+  .chips .btn{flex:1 1 auto}
+  .exp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .exp .btn{padding:10px 6px;text-align:center}
+  .fld input,.fld select,.fld textarea,.form input,.form select,.form textarea{font-size:16px;min-height:44px;padding:8px 12px}
+  .banner{flex-direction:column;align-items:flex-start;gap:14px;padding:20px 20px 28px}
+  .ring{width:92px;height:92px}
+  .bn-v{font-size:46px}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card .v{font-size:34px}
+  .card.mini .v{font-size:30px}
+  .card:last-child:nth-child(odd){grid-column:1/-1}
+  .panels{grid-template-columns:minmax(0,1fr)}
+  .panel{padding:16px}
   .prow{grid-template-columns:46px minmax(0,1fr)}
   .prow .n{grid-column:2}
-  .lrow{grid-template-columns:96px minmax(0,1fr) 72px}
-  .panels{grid-template-columns:minmax(0,1fr)}
-  .tools{padding:12px}
+  .lrow{grid-template-columns:104px minmax(0,1fr) 78px}
+  .g3,.g2{grid-template-columns:minmax(0,1fr)}
+  .g3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g3>label:last-child{grid-column:1/-1}
+  .g2:has(#f-total),.g2:has(#p-koli){grid-template-columns:repeat(2,minmax(0,1fr))}
+  .setrow{flex-direction:column;align-items:stretch}
+  .setrow .acts{justify-content:flex-start;flex-wrap:wrap}
+  th,td{padding:10px 10px}
+
+  /* tabel menjadi kartu */
+  .rt{min-width:0!important}
+  .rt thead{display:none}
+  .rt,.rt tbody,.rt tfoot,.rt tr{display:block;width:100%}
+  .rt tr{padding:12px 14px;border-bottom:1px solid var(--line2)}
+  .rt tbody tr:last-child{border-bottom:0}
+  .rt td{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:3px 0;border:0;text-align:right;background:none}
+  .rt td::before{content:attr(data-label);color:var(--muted);font-size:13px;font-weight:500;text-align:left;flex:none}
+  .rt td:not([data-label])::before{content:none}
+  .rt td:empty{display:none}
+  .rt td.c-no{display:none}
+  .rt td.c-h{display:block;text-align:left;font-weight:600;font-size:16px;padding-bottom:6px}
+  .rt td.c-h::before{content:none}
+  .rt td.empty{display:block;text-align:center}
+  .rt td.empty::before{content:none}
+  .rt tfoot tr{background:var(--head);border-top:1px solid var(--line)}
+  .rt .acts{justify-content:flex-start;flex-wrap:wrap;white-space:normal}
+  .rt td.c-act{display:block;padding-top:8px}
+  .rt td.c-act::before{content:none}
+  .rt tbody tr:hover{background:none}
+  .rt td .note{max-width:none}
+  /* kartu laporan */
+  .rt-lap tr{display:grid;grid-auto-flow:row dense;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px 8px;align-items:start;padding:14px}
+  .rt-lap td{display:block;padding:0;text-align:left}
+  .rt-lap td::before{display:block;margin-bottom:1px}
+  .rt-lap td.c-date{grid-column:1/5;font-weight:600;font-size:17px}
+  .rt-lap td.c-date{order:1}
+  .rt-lap td.c-st{order:2;align-self:center}
+  .rt-lap td.c-src{order:3}
+  .rt-lap td.c-non,.rt-lap td.c-book,.rt-lap td.c-tot,.rt-lap td.c-done,.rt-lap td.c-left{order:4}
+  .rt-lap td.c-act{order:5}
+  .rt-lap tfoot td.c-h{order:0}
+  .rt-lap td.c-date::before,.rt-lap td.c-st::before{content:none}
+  .rt-lap td.c-st{grid-column:5/-1;text-align:right}
+  .rt-lap td.c-src{grid-column:1/-1}
+  .rt-lap td.c-non{grid-column:1/3}
+  .rt-lap td.c-book{grid-column:3/5}
+  .rt-lap td.c-tot{grid-column:5/-1}
+  .rt-lap td.c-done{grid-column:1/4}
+  .rt-lap td.c-left{grid-column:4/-1}
+  .rt-lap td.c-act{grid-column:1/-1;padding-top:4px}
+  .rt-lap td.c-h{grid-column:1/-1;font-size:16px}
+  .rt-lap tfoot td.c-st{grid-column:1/-1;text-align:left}
+  .rt-lap .mp{margin-left:auto;width:100%;max-width:96px}
+  .rt-lap td .note{margin-top:2px}
+
+  /* formulir naik dari bawah */
+  .overlay{padding:0;align-items:flex-end}
+  .sheet{max-width:none;margin:0;border-radius:18px 18px 0 0;border-bottom:0;padding:20px 18px calc(18px + var(--safe-b));max-height:94vh;overflow-y:auto}
+  .sheet h2{font-size:26px}
+  .actions{position:sticky;bottom:calc(-18px - var(--safe-b));background:var(--surface);padding:10px 0 2px;margin-top:2px}
+  .actions .btn{flex:1;min-height:48px;font-size:16px}
 }
-@media (prefers-reduced-motion:no-preference){.btn{transition:background .15s,filter .15s,border-color .15s}.bar i,.mp i{transition:width .3s}}
+@media (prefers-reduced-motion:no-preference){
+  .btn{transition:background .15s,filter .15s,border-color .15s}
+  .bar i,.mp i{transition:width .3s}
+  .sheet{animation:sheetin .22s ease-out}
+  @keyframes sheetin{from{transform:translateY(22px);opacity:0}to{transform:none;opacity:1}}
+}
 </style>
 
 <div class="app">
@@ -526,8 +621,8 @@ function mount(){
       '<label class="fld sm" for="to">Sampai tanggal<input id="to" type="date" value="'+f.to+'"></label>'+
       '<label class="fld sm" for="st">Status<select id="st"><option value="">Semua status</option><option value="selesai">Selesai</option><option value="proses">Proses</option><option value="belum">Belum Diproses</option></select></label>'+
       '<span class="sp"></span>'+
-      '<button class="btn" data-exp="xlsx" data-kind="'+route+'">Unduh Excel</button>'+
-      '<button class="btn" data-exp="pdf" data-kind="'+route+'">Unduh PDF</button><button class="btn" data-exp="csv" data-kind="'+route+'">Unduh CSV</button>'+
+      '<div class="exp"><button class="btn" data-exp="xlsx" data-kind="'+route+'">Excel</button>'+
+      '<button class="btn" data-exp="pdf" data-kind="'+route+'">PDF</button><button class="btn" data-exp="csv" data-kind="'+route+'">CSV</button></div>'+
       '<button class="btn primary" data-act="add">Tambah Data</button></div><div id="tbl" class="main"></div>';
     $('#st').value=f.st;
   }else if(route==='proses'){
@@ -536,8 +631,8 @@ function mount(){
       '<label class="fld sm" for="from">Dari tanggal proses<input id="from" type="date" value="'+p.from+'"></label>'+
       '<label class="fld sm" for="to">Sampai tanggal<input id="to" type="date" value="'+p.to+'"></label>'+
       '<span class="sp"></span>'+
-      '<button class="btn" data-exp="xlsx" data-kind="proses">Unduh Excel</button>'+
-      '<button class="btn" data-exp="pdf" data-kind="proses">Unduh PDF</button><button class="btn" data-exp="csv" data-kind="proses">Unduh CSV</button>'+
+      '<div class="exp"><button class="btn" data-exp="xlsx" data-kind="proses">Excel</button>'+
+      '<button class="btn" data-exp="pdf" data-kind="proses">PDF</button><button class="btn" data-exp="csv" data-kind="proses">CSV</button></div>'+
       '<button class="btn primary" data-act="padd">Catat Proses</button></div><div id="tbl" class="main"></div>';
   }else if(route==='rekap'){
     var g=F.rekap;
@@ -545,8 +640,8 @@ function mount(){
       '<label class="fld sm" for="from">Dari tanggal<input id="from" type="date" value="'+g.from+'"></label>'+
       '<label class="fld sm" for="to">Sampai tanggal<input id="to" type="date" value="'+g.to+'"></label>'+
       '<span class="sp"></span>'+
-      '<button class="btn" data-exp="xlsx" data-kind="rekap">Unduh Excel</button>'+
-      '<button class="btn" data-exp="pdf" data-kind="rekap">Unduh PDF</button><button class="btn" data-exp="csv" data-kind="rekap">Unduh CSV</button></div><div id="tbl"></div>';
+      '<div class="exp"><button class="btn" data-exp="xlsx" data-kind="rekap">Excel</button>'+
+      '<button class="btn" data-exp="pdf" data-kind="rekap">PDF</button><button class="btn" data-exp="csv" data-kind="rekap">CSV</button></div></div><div id="tbl"></div>';
   }else{v.innerHTML=''}
   refresh();
 }
@@ -616,7 +711,7 @@ function dash(){
   var avg=out7/7,est=all.left===0?'Selesai':(avg>0?'± '+Math.ceil(all.left/avg)+' hari':'–');
   var scope=(rg[0]||rg[1])?'Periode: masuk '+(rg[0]?fmt(rg[0]):'awal')+' sampai '+(rg[1]?fmt(rg[1]):'sekarang'):'Seluruh data';
 
-  var h='<section class="sec"><h2>Ringkasan · '+esc(scope)+'</h2>'+
+  var h='<section class="sec"><h2>Ringkasan</h2><p class="hint" style="margin-top:-6px">'+esc(scope)+'</p>'+
     '<div class="banner"><div class="bn-ring">'+ring(s.pct)+'</div><div class="bn-txt"><div class="bn-l">Penyelesaian proses</div>'+
     '<div class="bn-v">'+nf(s.done)+'<small>dari '+nf(s.total)+' koli sudah diproses</small></div>'+
     '<div class="bn-s">'+nf(sc.selesai)+' dari '+nf(s.n)+' laporan selesai · '+nf(s.left)+' koli masih menunggu</div></div></div>'+
@@ -628,7 +723,7 @@ function dash(){
     card('Belum diproses',nf(s.left),'koli','','','clock','a')+
     '</div></section>';
 
-  h+='<section class="sec"><h2>Aktivitas hari ini · '+dayName(t)+', '+fmt(t)+'</h2><div class="cards">'+
+  h+='<section class="sec"><h2>Aktivitas hari ini</h2><p class="hint" style="margin-top:-6px">'+dayName(t)+', '+fmt(t)+'</p><div class="cards">'+
     card('Masuk hari ini',nf(masukByDate(t)),'koli','','mini','truck','n')+
     card('Diproses hari ini',nf(procByDate(t)),'koli','','mini','check','g')+
     card('Rata-rata proses per hari',nf1(avg),'koli','7 hari terakhir','mini','trend','b')+
@@ -656,15 +751,15 @@ h+='<div class="panels">';
   }).join('')+'</section>';
 
   var a=sums(list.filter(function(r){return r.kategori==='masuk'})),b2=sums(list.filter(function(r){return r.kategori==='luar'}));
-  var srow=function(n,x){return '<tr><td>'+n+'</td><td class="num">'+nf(x.n)+'</td><td class="num">'+nf(x.total)+'</td><td class="num">'+nf(x.done)+'</td><td class="num">'+nf(x.left)+'</td><td class="num">'+x.pct+'%</td></tr>'};
-  h+='<section class="panel"><h2>Berdasarkan sumber</h2><div class="tablewrap" style="border:0"><table style="min-width:0"><thead><tr><th>Sumber</th><th class="num">Laporan</th><th class="num">Total</th><th class="num">Sudah</th><th class="num">Belum</th><th class="num">%</th></tr></thead><tbody>'+
+  var srow=function(n,x){return '<tr><td class="c-h">'+n+'</td><td class="num" data-label="Laporan">'+nf(x.n)+'</td><td class="num" data-label="Total koli">'+nf(x.total)+'</td><td class="num" data-label="Sudah diproses">'+nf(x.done)+'</td><td class="num" data-label="Belum diproses">'+nf(x.left)+'</td><td class="num" data-label="Progres">'+x.pct+'%</td></tr>'};
+  h+='<section class="panel"><h2>Berdasarkan sumber</h2><div class="tablewrap" style="border:0"><table class="rt" style="min-width:0"><thead><tr><th>Sumber</th><th class="num">Laporan</th><th class="num">Total</th><th class="num">Sudah</th><th class="num">Belum</th><th class="num">%</th></tr></thead><tbody>'+
     srow('Duta TO Buluh Indah',a)+srow('Penerimaan STO &amp; Cetul',b2)+'</tbody></table></div></section>';
 
   var gm={};list.filter(function(r){return r.kategori==='luar'}).forEach(function(r){
     var k=(r.asal||'Tanpa nama').trim().toLowerCase();var o=gm[k]=gm[k]||{nama:(r.asal||'Tanpa nama').trim(),rows:[]};o.rows.push(r)});
   var gl=Object.keys(gm).map(function(k){var x=sums(gm[k].rows);x.nama=gm[k].nama;return x}).sort(function(p,q){return q.total-p.total}).slice(0,8);
-  h+='<section class="panel"><h2>Asal Penerimaan STO &amp; Cetul</h2>'+(gl.length?'<div class="tablewrap" style="border:0"><table style="min-width:0"><thead><tr><th>Asal</th><th class="num">Laporan</th><th class="num">Total</th><th class="num">Belum</th><th class="num">%</th></tr></thead><tbody>'+
-    gl.map(function(x){return '<tr><td>'+esc(x.nama)+'</td><td class="num">'+nf(x.n)+'</td><td class="num">'+nf(x.total)+'</td><td class="num">'+nf(x.left)+'</td><td class="num">'+x.pct+'%</td></tr>'}).join('')+'</tbody></table></div>':'<p class="hint">Belum ada penerimaan STO &amp; Cetul pada periode ini.</p>')+'</section>';
+  h+='<section class="panel"><h2>Asal Penerimaan STO &amp; Cetul</h2>'+(gl.length?'<div class="tablewrap" style="border:0"><table class="rt" style="min-width:0"><thead><tr><th>Asal</th><th class="num">Laporan</th><th class="num">Total</th><th class="num">Belum</th><th class="num">%</th></tr></thead><tbody>'+
+    gl.map(function(x){return '<tr><td class="c-h">'+esc(x.nama)+'</td><td class="num" data-label="Laporan">'+nf(x.n)+'</td><td class="num" data-label="Total koli">'+nf(x.total)+'</td><td class="num" data-label="Belum diproses">'+nf(x.left)+'</td><td class="num" data-label="Progres">'+x.pct+'%</td></tr>'}).join('')+'</tbody></table></div>':'<p class="hint">Belum ada penerimaan STO &amp; Cetul pada periode ini.</p>')+'</section>';
 
   var rk=rekapRows(rg[0],rg[1]).slice(-10).reverse(),mx=1;
   rk.forEach(function(x){if(x.total>mx)mx=x.total});
@@ -700,14 +795,14 @@ function tableHtml(kind){
     var act=del?'<span class="m">Hapus laporan ini'+(c.logged?' dan '+c.logged+' koli catatan prosesnya':'')+'?</span> <button class="btn sm danger" data-act="del-yes" data-id="'+esc(r.id)+'">Ya, hapus</button> <button class="btn sm" data-act="del-no">Batal</button>'
       :(c.left>0?'<button class="btn sm" data-act="proc" data-id="'+esc(r.id)+'">Proses</button> ':'')+'<button class="btn sm" data-act="edit" data-id="'+esc(r.id)+'">Edit</button> <button class="btn sm" data-act="del" data-id="'+esc(r.id)+'">Hapus</button>';
     var note=r.ket?'<span class="note">'+esc(r.ket)+'</span>':'';
-    return '<tr><td>'+(i+1)+'</td><td>'+fmt(r.tanggal)+(r.contoh?'<span class="tag">Contoh</span>':'')+note+'</td>'+
-      (luar?'<td>'+esc(r.asal)+'</td>':'')+
-      '<td class="num">'+nf(c.non)+'</td><td class="num">'+nf(c.book)+'</td><td class="num">'+nf(c.total)+'</td><td class="num">'+nf(c.done)+'</td><td class="num'+(c.left?' lf':'')+'">'+nf(c.left)+'</td><td>'+pill(c.status)+'<div class="mp"><i class="f-'+c.status+'" style="width:'+c.pct+'%"></i></div></td><td><div class="acts">'+act+'</div></td></tr>';
+    return '<tr><td class="c-no" data-label="No.">'+(i+1)+'</td><td class="c-date" data-label="Tanggal">'+fmt(r.tanggal)+(r.contoh?'<span class="tag">Contoh</span>':'')+note+'</td>'+
+      (luar?'<td class="c-src" data-label="Asal barang">'+esc(r.asal)+'</td>':'')+
+      '<td class="num c-non" data-label="Nonbook">'+nf(c.non)+'</td><td class="num c-book" data-label="Book">'+nf(c.book)+'</td><td class="num c-tot" data-label="Total koli">'+nf(c.total)+'</td><td class="num c-done" data-label="Sudah diproses">'+nf(c.done)+'</td><td class="num c-left'+(c.left?' lf':'')+'" data-label="Belum diproses">'+nf(c.left)+'</td><td class="c-st">'+pill(c.status)+'<div class="mp"><i class="f-'+c.status+'" style="width:'+c.pct+'%"></i></div></td><td class="c-act"><div class="acts">'+act+'</div></td></tr>';
   }).join('');
   var s=sums(list);
-  var foot=list.length?'<tfoot><tr><td colspan="'+(luar?3:2)+'">Jumlah ('+list.length+' laporan)</td><td class="num">'+nf(s.non)+'</td><td class="num">'+nf(s.book)+'</td><td class="num">'+nf(s.total)+'</td><td class="num">'+nf(s.done)+'</td><td class="num">'+nf(s.left)+'</td><td colspan="2">'+s.pct+'% selesai</td></tr></tfoot>':'';
+  var foot=list.length?'<tfoot><tr><td class="c-h" colspan="'+(luar?3:2)+'">Jumlah ('+list.length+' laporan)</td><td class="num c-non" data-label="Nonbook">'+nf(s.non)+'</td><td class="num c-book" data-label="Book">'+nf(s.book)+'</td><td class="num c-tot" data-label="Total koli">'+nf(s.total)+'</td><td class="num c-done" data-label="Sudah diproses">'+nf(s.done)+'</td><td class="num c-left" data-label="Belum diproses">'+nf(s.left)+'</td><td class="c-st" colspan="2" data-label="Progres">'+s.pct+'% selesai</td></tr></tfoot>':'';
   var empty=list.length?'':'<tr><td colspan="'+cols+'" class="empty">'+(rows.some(function(r){return r.kategori===kind})?'Tidak ada laporan yang cocok dengan filter.':'Belum ada laporan. Klik Tambah Data untuk memasukkan laporan pertama.')+'</td></tr>';
-  return '<div class="tablewrap"><table><thead>'+head+'</thead><tbody>'+body+empty+'</tbody>'+foot+'</table></div>';
+  return '<div class="tablewrap"><table class="rt rt-lap"><thead>'+head+'</thead><tbody>'+body+empty+'</tbody>'+foot+'</table></div>';
 }
 function prosesHtml(){
   if(!loaded)return '<div class="tablewrap"><div class="empty">Memuat data…</div></div>';
@@ -716,19 +811,19 @@ function prosesHtml(){
   var cards='<div class="cards">'+card('Diproses hari ini',nf(procByDate(t)),'koli','','mini','check','g')+card('Diproses 7 hari terakhir',nf(out7),'koli','','mini','cal','n')+
     card('Rata-rata per hari',nf1(out7/7),'koli','7 hari terakhir','mini','trend','b')+card('Sisa belum diproses',nf(all.left),'koli',nf(outstanding().length)+' laporan menunggu','mini','clock','a')+'</div>';
   var list=logsFiltered(),days=logsByDay(list);
-  var dayT='<div class="tablewrap"><table style="min-width:420px"><thead><tr><th>Tanggal Proses</th><th class="num">Koli Diproses</th><th class="num">Jumlah Catatan</th></tr></thead><tbody>'+
-    (days.length?days.map(function(d){return '<tr><td>'+fmt(d.tanggal)+' <span class="m">'+dayName(d.tanggal)+'</span></td><td class="num">'+nf(d.koli)+'</td><td class="num">'+nf(d.n)+'</td></tr>'}).join(''):'<tr><td colspan="3" class="empty">Belum ada proses harian yang dicatat.</td></tr>')+'</tbody></table></div>';
+  var dayT='<div class="tablewrap"><table class="rt" style="min-width:420px"><thead><tr><th>Tanggal Proses</th><th class="num">Koli Diproses</th><th class="num">Jumlah Catatan</th></tr></thead><tbody>'+
+    (days.length?days.map(function(d){return '<tr><td class="c-h">'+fmt(d.tanggal)+' <span class="m">'+dayName(d.tanggal)+'</span></td><td class="num" data-label="Koli diproses">'+nf(d.koli)+'</td><td class="num" data-label="Jumlah catatan">'+nf(d.n)+'</td></tr>'}).join(''):'<tr><td colspan="3" class="empty">Belum ada proses harian yang dicatat.</td></tr>')+'</tbody></table></div>';
   var body=list.map(function(p,j){
     var r=byId(p.laporanId),del=pendingDelP===p.id;
     var act=del?'<span class="m">Hapus catatan ini?</span> <button class="btn sm danger" data-act="pdel-yes" data-id="'+esc(p.id)+'">Ya, hapus</button> <button class="btn sm" data-act="pdel-no">Batal</button>'
       :'<button class="btn sm" data-act="pdel" data-id="'+esc(p.id)+'">Hapus</button>';
-    return '<tr><td>'+(j+1)+'</td><td>'+fmt(p.tanggal)+'</td><td>'+fmt(r.tanggal)+'</td><td>'+esc(sumber(r))+'</td><td class="num">'+nf(p.koli)+'</td><td>'+esc(p.ket||'')+'</td><td><div class="acts">'+act+'</div></td></tr>';
+    return '<tr><td class="c-no">'+(j+1)+'</td><td class="c-h">'+fmt(p.tanggal)+'</td><td data-label="Tanggal masuk barang">'+fmt(r.tanggal)+'</td><td data-label="Sumber">'+esc(sumber(r))+'</td><td class="num" data-label="Koli diproses">'+nf(p.koli)+'</td><td data-label="Keterangan">'+esc(p.ket||'')+'</td><td class="c-act"><div class="acts">'+act+'</div></td></tr>';
   }).join('');
   var tot=list.reduce(function(a,p){return a+num(p.koli)},0);
-  var logT='<div class="tablewrap"><table style="min-width:640px"><thead><tr><th>No.</th><th>Tanggal Proses</th><th>Tanggal Masuk Barang</th><th>Sumber</th><th class="num">Koli Diproses</th><th>Keterangan</th><th></th></tr></thead><tbody>'+
+  var logT='<div class="tablewrap"><table class="rt" style="min-width:640px"><thead><tr><th>No.</th><th>Tanggal Proses</th><th>Tanggal Masuk Barang</th><th>Sumber</th><th class="num">Koli Diproses</th><th>Keterangan</th><th></th></tr></thead><tbody>'+
     (list.length?body:'<tr><td colspan="7" class="empty">Belum ada catatan. Klik Catat Proses untuk menambahkan.</td></tr>')+'</tbody>'+
-    (list.length?'<tfoot><tr><td colspan="4">Jumlah ('+list.length+' catatan)</td><td class="num">'+nf(tot)+'</td><td colspan="2"></td></tr></tfoot>':'')+'</table></div>';
-  return cards+'<h2 style="font-size:16px">Rekap per hari</h2>'+dayT+'<h2 style="font-size:16px">Catatan proses</h2>'+logT+
+    (list.length?'<tfoot><tr><td class="c-h" colspan="4">Jumlah ('+list.length+' catatan)</td><td class="num" data-label="Koli diproses">'+nf(tot)+'</td><td colspan="2"></td></tr></tfoot>':'')+'</table></div>';
+  return cards+'<h2 style="font-size:22px">Rekap per hari</h2>'+dayT+'<h2 style="font-size:22px">Catatan proses</h2>'+logT+
     '<p class="hint">Angka "sudah diproses" yang diisi saat input laporan tidak tampil di sini. Hanya proses yang dicatat lewat menu ini.</p>';
 }
 function rekapHtml(){
@@ -736,12 +831,12 @@ function rekapHtml(){
   var g=F.rekap,rk=rekapRows(g.from,g.to);
   var inr=function(r){return (!g.from||r.tanggal>=g.from)&&(!g.to||r.tanggal<=g.to)};
   var a=sums(rows.filter(function(r){return inr(r)&&r.kategori==='masuk'})),b=sums(rows.filter(function(r){return inr(r)&&r.kategori==='luar'})),t=sums(rows.filter(inr));
-  var line=function(n,s,strong){return '<tr'+(strong?' style="font-weight:600"':'')+'><td>'+n+'</td><td class="num">'+nf(s.non)+'</td><td class="num">'+nf(s.book)+'</td><td class="num">'+nf(s.total)+'</td><td class="num">'+nf(s.done)+'</td><td class="num">'+nf(s.left)+'</td><td class="num">'+s.pct+'%</td></tr>'};
+  var line=function(n,s,strong){return '<tr'+(strong?' style="font-weight:600"':'')+'><td class="c-h">'+n+'</td><td class="num" data-label="Nonbook">'+nf(s.non)+'</td><td class="num" data-label="Book">'+nf(s.book)+'</td><td class="num" data-label="Total koli">'+nf(s.total)+'</td><td class="num" data-label="Sudah diproses">'+nf(s.done)+'</td><td class="num" data-label="Belum diproses">'+nf(s.left)+'</td><td class="num" data-label="Progres">'+s.pct+'%</td></tr>'};
   var H='<th class="num">Nonbook</th><th class="num">Book</th><th class="num">Total Koli</th><th class="num">Sudah Diproses</th><th class="num">Belum Diproses</th><th class="num">Progres</th>';
-  var by='<div class="tablewrap"><table style="min-width:640px"><thead><tr><th>Sumber</th>'+H+'</tr></thead><tbody>'+line('Duta TO Buluh Indah',a)+line('Penerimaan STO &amp; Cetul',b)+line('Gabungan',t,true)+'</tbody></table></div>';
+  var by='<div class="tablewrap"><table class="rt" style="min-width:640px"><thead><tr><th>Sumber</th>'+H+'</tr></thead><tbody>'+line('Duta TO Buluh Indah',a)+line('Penerimaan STO &amp; Cetul',b)+line('Gabungan',t,true)+'</tbody></table></div>';
   var body=rk.map(function(x){return line(fmt(x.tanggal),x)}).join('')||'<tr><td colspan="7" class="empty">Belum ada data pada rentang tanggal ini.</td></tr>';
-  var foot=rk.length?'<tfoot><tr><td>Jumlah</td><td class="num">'+nf(t.non)+'</td><td class="num">'+nf(t.book)+'</td><td class="num">'+nf(t.total)+'</td><td class="num">'+nf(t.done)+'</td><td class="num">'+nf(t.left)+'</td><td class="num">'+t.pct+'%</td></tr></tfoot>':'';
-  return by+'<h2 style="font-size:16px;margin:18px 0 10px">Rekap per tanggal masuk</h2><div class="tablewrap"><table style="min-width:640px"><thead><tr><th>Tanggal</th>'+H+'</tr></thead><tbody>'+body+'</tbody>'+foot+'</table></div>';
+  var foot=rk.length?'<tfoot><tr><td class="c-h">Jumlah</td><td class="num" data-label="Nonbook">'+nf(t.non)+'</td><td class="num" data-label="Book">'+nf(t.book)+'</td><td class="num" data-label="Total koli">'+nf(t.total)+'</td><td class="num" data-label="Sudah diproses">'+nf(t.done)+'</td><td class="num" data-label="Belum diproses">'+nf(t.left)+'</td><td class="num" data-label="Progres">'+t.pct+'%</td></tr></tfoot>':'';
+  return by+'<h2 style="font-size:22px;margin:18px 0 10px">Rekap per tanggal masuk</h2><div class="tablewrap"><table class="rt" style="min-width:640px"><thead><tr><th>Tanggal</th>'+H+'</tr></thead><tbody>'+body+'</tbody>'+foot+'</table></div>';
 }
 function settings(){
   var ex=rows.filter(function(r){return r.contoh}).length;
@@ -751,7 +846,7 @@ function settings(){
   $('#view').innerHTML='<section class="panel set">'+
     '<div class="setrow"><div><b>Penyimpanan data</b><p class="hint">'+where+'</p></div><span class="chip">'+nf(rows.length)+' laporan · '+nf(validP.length)+' catatan proses</span></div>'+
     '<div class="setrow"><div><b>Unduh semua laporan</b><p class="hint">Berisi laporan Duta TO Buluh Indah, Penerimaan STO &amp; Cetul, proses harian, dan rekap per tanggal.</p></div>'+
-      '<div class="acts"><button class="btn" data-exp="xlsx" data-kind="semua">Unduh Excel</button><button class="btn" data-exp="pdf" data-kind="semua">Unduh PDF</button><button class="btn" data-exp="csv" data-kind="semua">Unduh CSV</button></div></div>'+
+      '<div class="acts"><button class="btn" data-exp="xlsx" data-kind="semua">Excel</button><button class="btn" data-exp="pdf" data-kind="semua">PDF</button><button class="btn" data-exp="csv" data-kind="semua">CSV</button></div></div>'+
     '<div class="setrow"><div><b>Cadangan data</b><p class="hint">Simpan seluruh data ke satu file JSON, atau pulihkan dari file cadangan. Pulihkan menggabungkan data: ID yang sama ditimpa, sisanya ditambahkan.</p></div>'+
       '<div class="acts"><button class="btn" data-act="backup">Cadangkan (JSON)</button><button class="btn" data-act="restore">Pulihkan dari file</button><input type="file" id="rfile" accept="application/json,.json" hidden></div></div>'+
     '<div class="setrow"><div><b>Aturan status</b><div class="legend" style="margin-top:6px">'+pill('selesai')+' semua koli sudah diproses '+pill('proses')+' masih ada yang belum diproses '+pill('belum')+' belum ada yang diproses</div></div></div>'+
