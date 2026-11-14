@@ -1,0 +1,899 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Laporan Gudang Buluh Indah</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: sidebar merah + konten; di ponsel sidebar menjadi bilah atas yang bisa digeser. */
+:root{
+  --bg:#f5f3f2; --surface:#ffffff; --fg:#201a19; --muted:#6a605e; --line:#e5dfdd;
+  --red:#c4161f; --btn:#c4161f; --btn-fg:#ffffff; --red-soft:#fbe8e9; --side:#b8131c; --side-fg:#ffffff;
+  --ok:#1b7443; --ok-bg:#e1f2e8; --ok-fill:#2e9e5f;
+  --warn:#7d5200; --warn-bg:#fdefc4; --warn-fill:#d99a14;
+  --bad:#a8241c; --bad-bg:#fbe3e1; --bad-fill:#d6453d;
+  --in:#8b807d; --track:#ebe6e4; --head:#faf8f7;
+  --font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-head:'Space Grotesk','Inter',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#151111; --surface:#1f1a1a; --fg:#f2ecea; --muted:#a99d9a; --line:#352d2d;
+    --red:#f0535b; --btn:#cf2a33; --btn-fg:#ffffff; --red-soft:#3b1d20; --side:#8c1119; --side-fg:#ffffff;
+    --ok:#74d69d; --ok-bg:#15301f; --ok-fill:#3aa86a;
+    --warn:#f2c24e; --warn-bg:#362a09; --warn-fill:#c9971f;
+    --bad:#ff8f88; --bad-bg:#3b1a18; --bad-fill:#e0605a;
+    --in:#a79b98; --track:#332b2a; --head:#251f1f; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#151111; --surface:#1f1a1a; --fg:#f2ecea; --muted:#a99d9a; --line:#352d2d;
+  --red:#f0535b; --btn:#cf2a33; --btn-fg:#ffffff; --red-soft:#3b1d20; --side:#8c1119; --side-fg:#ffffff;
+  --ok:#74d69d; --ok-bg:#15301f; --ok-fill:#3aa86a;
+  --warn:#f2c24e; --warn-bg:#362a09; --warn-fill:#c9971f;
+  --bad:#ff8f88; --bad-bg:#3b1a18; --bad-fill:#e0605a;
+  --in:#a79b98; --track:#332b2a; --head:#251f1f; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:14px;line-height:1.5;
+  padding-block:16px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--font-head);margin:0;text-wrap:balance;letter-spacing:-.01em}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);gap:24px;max-width:1280px;margin:0 auto;align-items:start}
+.side{background:var(--side);color:var(--side-fg);border-radius:14px;padding:20px 12px;position:sticky;top:16px;display:flex;flex-direction:column;gap:20px}
+.brand{padding:0 8px;display:flex;flex-direction:column;gap:2px}
+.brand b{font-family:var(--font-head);font-size:19px;line-height:1.15}
+.brand span{font-size:12px;opacity:.85;letter-spacing:.04em;text-transform:uppercase}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav a{color:inherit;text-decoration:none;padding:9px 10px;border-radius:8px;font-weight:500;display:block;opacity:.88}
+.nav a:hover{background:rgba(255,255,255,.12);opacity:1}
+.nav a[aria-current="page"]{background:#fff;color:#a80f18;opacity:1}
+.main{min-width:0;display:flex;flex-direction:column;gap:18px}
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 16px}
+.top h1{font-size:26px}
+.top p{margin:2px 0 0;color:var(--muted)}
+.chip{font-size:12px;padding:3px 10px;border-radius:99px;background:var(--surface);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.card .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.card .v{font-family:var(--font-head);font-size:32px;font-weight:600;line-height:1.15;margin-top:4px;font-variant-numeric:tabular-nums}
+.card .v small{font-size:14px;font-weight:500;color:var(--muted);margin-left:4px}
+.card .s{font-size:12px;color:var(--muted);margin-top:2px}
+.card.hero{background:var(--btn);border-color:var(--btn);color:#fff}
+.card.hero .l,.card.hero .v small{color:rgba(255,255,255,.85)}
+.card.mini .v{font-size:24px}
+.bar{height:8px;border-radius:99px;background:var(--track);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok-fill);border-radius:99px}
+.bar i.f-selesai{background:var(--ok-fill)}
+.bar i.f-proses{background:var(--warn-fill)}
+.bar i.f-belum{background:var(--bad-fill)}
+.bar i.f-in{background:var(--in)}
+.bar i.f-red{background:var(--btn)}
+.card.hero .bar{background:rgba(255,255,255,.28);margin-top:10px}
+.card.hero .bar i{background:#fff}
+.sec{display:flex;flex-direction:column;gap:12px}
+.sec>h2{font-size:15px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-top:6px}
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.panel.wide{grid-column:1/-1}
+.panel h2{font-size:16px;margin-bottom:12px}
+.panel .sub{color:var(--muted);font-size:13px;margin:-6px 0 12px}
+.prow{display:grid;grid-template-columns:78px minmax(0,1fr) auto;gap:10px;align-items:center;padding:6px 0}
+.prow .d{font-variant-numeric:tabular-nums;font-weight:500}
+.prow .n{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lrow{display:grid;grid-template-columns:120px minmax(0,1fr) 92px;gap:10px;align-items:center;padding:6px 0}
+.lrow .n{font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+.arow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;justify-content:space-between;padding:9px 0;border-top:1px solid var(--line)}
+.arow:first-of-type{border-top:0}
+.arow b{font-variant-numeric:tabular-nums}
+.arow .m,.m{color:var(--muted);font-size:12px}
+.stack{display:flex;height:14px;border-radius:99px;overflow:hidden;background:var(--track)}
+.stack i{display:block;height:100%}
+.keys{display:flex;flex-wrap:wrap;gap:6px 16px;margin:10px 0 0;font-size:13px}
+.keys span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:var(--k)}
+.chartwrap{overflow-x:auto}
+.chartwrap svg{display:block;width:100%;min-width:560px;height:auto}
+.chartwrap .ax{fill:var(--muted);font-size:10px;font-family:var(--font-body)}
+.chartwrap .axb{fill:var(--fg);font-size:10px;font-weight:600;font-family:var(--font-body)}
+.chartwrap .gl{stroke:var(--line);stroke-width:1}
+.chartwrap .c-in{fill:var(--in)}
+.chartwrap .c-out{fill:var(--ok-fill)}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.fld{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted);min-width:0}
+.fld input,.fld select,.fld textarea,.form input,.form select,.form textarea{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--fg);font-size:14px;min-width:0;width:100%}
+.fld.grow{flex:1 1 200px}
+.fld.sm{flex:0 1 150px}
+.sp{flex:1 1 0}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 13px;font-weight:500;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--head)}
+.btn[aria-pressed="true"]{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+.btn.primary{background:var(--btn);border-color:var(--btn);color:var(--btn-fg)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.danger{color:var(--bad);border-color:var(--bad)}
+.btn.sm{padding:4px 9px;font-size:12px}
+.tablewrap{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:780px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{background:var(--head);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;white-space:nowrap}
+th button{all:unset;cursor:pointer}
+th button:focus-visible{outline:2px solid var(--red)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--head)}
+tfoot td{font-weight:600;background:var(--head);border-bottom:0}
+td .note{display:block;font-size:12px;color:var(--muted);max-width:230px}
+.tag{font-size:11px;background:var(--red-soft);color:var(--red);padding:1px 7px;border-radius:99px;margin-left:6px;font-weight:500}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.st-selesai{background:var(--ok-bg);color:var(--ok)}
+.st-proses{background:var(--warn-bg);color:var(--warn)}
+.st-belum{background:var(--bad-bg);color:var(--bad)}
+.acts{display:flex;gap:6px;justify-content:flex-end;white-space:nowrap;align-items:center}
+.empty{padding:36px 16px;text-align:center;color:var(--muted)}
+.hint{color:var(--muted);font-size:13px;margin:0}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px}
+.set{display:flex;flex-direction:column;gap:14px}
+.setrow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--line)}
+.setrow:first-of-type{border-top:0;padding-top:0}
+.setrow p{margin:0;max-width:52ch}
+.setrow b{display:block}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:flex-start;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));overflow-y:auto;z-index:30}
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;width:100%;max-width:520px;margin:auto;display:flex;flex-direction:column;gap:14px}
+.sheet h2{font-size:20px}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);min-width:0}
+.g2,.g3{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.err{color:var(--bad);background:var(--bad-bg);border-radius:8px;padding:8px 10px;margin:0}
+.info{background:var(--head);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin:0;font-size:13px;color:var(--fg)}
+.actions{display:flex;justify-content:flex-end;gap:8px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:9px 16px;border-radius:10px;z-index:40;max-width:90vw;text-align:center}
+@media (max-width:860px){
+  .app{grid-template-columns:minmax(0,1fr);gap:14px}
+  .side{position:static;flex-direction:row;align-items:center;gap:12px;padding:10px 12px}
+  .brand{flex:0 0 auto}
+  .brand span{display:none}
+  .brand b{font-size:16px;max-width:110px}
+  .nav{flex-direction:row;overflow-x:auto;min-width:0;gap:4px}
+  .nav a{white-space:nowrap;padding:8px 11px}
+  .top h1{font-size:22px}
+}
+@media (max-width:520px){
+  .g3,.g2{grid-template-columns:minmax(0,1fr)}
+  .card .v{font-size:28px}
+  .prow{grid-template-columns:70px minmax(0,1fr)}
+  .prow .n{grid-column:2}
+  .lrow{grid-template-columns:92px minmax(0,1fr) 70px}
+  .panels{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:no-preference){.btn{transition:background .15s,filter .15s}.bar i{transition:width .3s}}
+</style>
+
+<div class="app">
+  <aside class="side">
+    <div class="brand"><b>Gudang Buluh Indah</b><span>Gramedia</span></div>
+    <nav class="nav" id="nav" aria-label="Menu utama">
+      <a href="#dashboard" data-r="dashboard">Dashboard</a>
+      <a href="#masuk" data-r="masuk">Laporan Barang Masuk</a>
+      <a href="#luar" data-r="luar">Penerimaan STO &amp; Cetul</a>
+      <a href="#proses" data-r="proses">Proses Harian</a>
+      <a href="#rekap" data-r="rekap">Rekapitulasi Laporan</a>
+      <a href="#pengaturan" data-r="pengaturan">Pengaturan Data</a>
+    </nav>
+  </aside>
+  <main class="main">
+    <div class="top">
+      <div><h1 id="ttl"></h1><p id="sub"></p></div>
+      <span class="chip" id="sync">Memuat data…</span>
+    </div>
+    <div id="view"></div>
+  </main>
+</div>
+
+<div class="overlay" id="modal" hidden>
+  <form class="sheet form" id="f" novalidate>
+    <h2 id="ftitle">Tambah Data</h2>
+    <div class="g2">
+      <label for="f-tanggal">Tanggal barang masuk<input id="f-tanggal" type="date"></label>
+      <label for="f-kategori">Kategori laporan
+        <select id="f-kategori">
+          <option value="masuk">Duta TO Buluh Indah</option>
+          <option value="luar">Penerimaan STO &amp; Cetul</option>
+        </select>
+      </label>
+    </div>
+    <label for="f-asal" id="f-asal-w">Asal barang (toko atau sumber pengiriman)<input id="f-asal" type="text" placeholder="Contoh: Toko A" autocomplete="off"></label>
+    <div class="g3">
+      <label for="f-book">Book (koli)<input id="f-book" type="number" min="0" step="1" inputmode="numeric" value="0"></label>
+      <label for="f-non">Nonbook (koli)<input id="f-non" type="number" min="0" step="1" inputmode="numeric" value="0"></label>
+      <label for="f-done">Sudah diproses saat input (koli)<input id="f-done" type="number" min="0" step="1" inputmode="numeric" value="0"></label>
+    </div>
+    <p class="info" id="f-logged" hidden></p>
+    <div class="g2">
+      <label for="f-total">Total koli (otomatis)<input id="f-total" readonly tabindex="-1"></label>
+      <label for="f-belum">Belum diproses (otomatis)<input id="f-belum" readonly tabindex="-1"></label>
+    </div>
+    <label for="f-ket">Keterangan tambahan (opsional)<textarea id="f-ket" rows="2"></textarea></label>
+    <p class="err" id="ferr" hidden></p>
+    <div class="actions">
+      <button type="button" class="btn" id="f-cancel">Batal</button>
+      <button type="submit" class="btn primary">Simpan</button>
+    </div>
+  </form>
+</div>
+
+<div class="overlay" id="pm" hidden>
+  <form class="sheet form" id="pf" novalidate>
+    <h2>Catat Proses Harian</h2>
+    <p class="hint">Catat koli yang selesai diproses pada hari tertentu. Tidak perlu ada barang masuk di hari itu.</p>
+    <div class="g2">
+      <label for="p-tanggal">Tanggal proses<input id="p-tanggal" type="date"></label>
+      <label for="p-koli">Jumlah koli diproses<input id="p-koli" type="number" min="1" step="1" inputmode="numeric" placeholder="0"></label>
+    </div>
+    <label for="p-mode">Dibagi ke
+      <select id="p-mode">
+        <option value="auto">Otomatis, barang terlama dulu</option>
+        <option value="manual">Pilih laporan tertentu</option>
+      </select>
+    </label>
+    <label for="p-target" id="p-target-w">Laporan yang diproses<select id="p-target"></select></label>
+    <p class="info" id="p-info"></p>
+    <label for="p-ket">Keterangan (opsional)<textarea id="p-ket" rows="2"></textarea></label>
+    <p class="err" id="perr" hidden></p>
+    <div class="actions">
+      <button type="button" class="btn" id="p-cancel">Batal</button>
+      <button type="submit" class="btn primary">Simpan Proses</button>
+    </div>
+  </form>
+</div>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script>
+(function(){
+'use strict';
+var $=function(s){return document.querySelector(s)};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+var num=function(v){var n=Math.floor(Number(v));return isFinite(n)&&n>0?n:0};
+var fmt=function(iso){return iso?String(iso).split('-').reverse().join('/'):''};
+var nf=function(n){return Number(n).toLocaleString('id-ID')};
+var nf1=function(n){return Number(n).toLocaleString('id-ID',{maximumFractionDigits:1})};
+var pad=function(n){return String(n).padStart(2,'0')};
+var ST={selesai:'Selesai',proses:'Proses',belum:'Belum Diproses'};
+var KEY='gudang-bi-v2';
+var DAYN=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+
+var SAMPLE=[
+  {id:'contoh-1',kategori:'masuk',tanggal:'2026-11-01',asal:'',nonbook:10,book:15,diproses:20,ket:'',contoh:true,createdAt:1},
+  {id:'contoh-2',kategori:'masuk',tanggal:'2026-11-02',asal:'',nonbook:8,book:12,diproses:20,ket:'',contoh:true,createdAt:2},
+  {id:'contoh-3',kategori:'luar',tanggal:'2026-11-03',asal:'Toko A',nonbook:5,book:10,diproses:10,ket:'',contoh:true,createdAt:3},
+  {id:'contoh-4',kategori:'luar',tanggal:'2026-11-04',asal:'Toko B',nonbook:7,book:8,diproses:15,ket:'',contoh:true,createdAt:4}
+];
+
+/* ---------- tanggal ---------- */
+function parse(iso){var a=iso.split('-');return Date.UTC(+a[0],+a[1]-1,+a[2])}
+function addDays(iso,n){var d=new Date(parse(iso)+n*864e5);return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate())}
+function diff(a,b){return Math.round((parse(b)-parse(a))/864e5)}
+function today(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function dayName(iso){return DAYN[new Date(parse(iso)).getUTCDay()]}
+
+/* ---------- state ---------- */
+var rows=[],proses=[],pmap={},validP=[],loaded=false,mode='init',loadSlow=false;
+var route='dashboard',pendingDel=null,pendingDelP=null,editing=null,confirmAll=false;
+var F={masuk:{q:'',from:'',to:'',st:'',sort:1},luar:{q:'',from:'',to:'',st:'',sort:1},rekap:{from:'',to:''},pr:{from:'',to:''}};
+var D={p:'all',from:'',to:''};
+
+function rebuild(){
+  var ids={};rows.forEach(function(r){ids[r.id]=1});
+  pmap={};validP=[];
+  proses.forEach(function(p){if(ids[p.laporanId]){pmap[p.laporanId]=(pmap[p.laporanId]||0)+num(p.koli);validP.push(p)}});
+}
+function calc(r){
+  var book=num(r.book),non=num(r.nonbook),total=book+non,base=num(r.diproses),logged=pmap[r.id]||0;
+  var done=Math.min(base+logged,total);
+  return {book:book,non:non,total:total,base:base,logged:logged,done:done,left:total-done,pct:total?Math.round(done/total*100):0,
+    status:(total>0&&done>=total)?'selesai':(done>0?'proses':'belum')};
+}
+function sums(list){
+  var s={book:0,non:0,total:0,done:0,left:0,n:0};
+  list.forEach(function(r){var c=calc(r);s.book+=c.book;s.non+=c.non;s.total+=c.total;s.done+=c.done;s.left+=c.left;s.n++});
+  s.pct=s.total?Math.round(s.done/s.total*100):0;return s;
+}
+function pill(s){return '<span class="pill st-'+s+'">'+ST[s]+'</span>'}
+function byId(id){return rows.find(function(r){return r.id===id})}
+function sumber(r){return r?(r.kategori==='luar'?(r.asal||'STO & Cetul'):'Duta TO Buluh Indah'):'(dihapus)'}
+function procByDate(d){
+  var t=0;
+  rows.forEach(function(r){if(r.tanggal===d)t+=num(r.diproses)});
+  validP.forEach(function(p){if(p.tanggal===d)t+=num(p.koli)});
+  return t;
+}
+function masukByDate(d){return sums(rows.filter(function(r){return r.tanggal===d})).total}
+function outstanding(){
+  return rows.filter(function(r){return calc(r).left>0}).sort(function(a,b){
+    return a.tanggal<b.tanggal?-1:a.tanggal>b.tanggal?1:(a.createdAt||0)-(b.createdAt||0)});
+}
+
+/* ---------- store ---------- */
+var store={
+  coll:null,pcoll:null,
+  init:function(){
+    var self=this;
+    var timer=setTimeout(function(){if(!loaded){loadSlow=true;syncChip();refresh()}},10000);
+    var p=(window.claude&&window.claude.use)?window.claude.use('db'):Promise.resolve(null);
+    p.catch(function(){return null}).then(function(db){
+      if(!db){self.local();clearTimeout(timer);return}
+      mode='shared';self.coll=db.collection('laporan');self.pcoll=db.collection('proses');
+      self.coll.onSnapshot(function(snap){
+        rows=snap.docs.map(function(d){var o=d.data()||{};o.id=d.id;return o});
+        if(!snap.metadata.fromCache||!loaded){loaded=true;loadSlow=false;clearTimeout(timer)}
+        rebuild();syncChip();refresh();
+      },function(){loaded=true;clearTimeout(timer);mode='error';syncChip();refresh()});
+      self.pcoll.onSnapshot(function(snap){
+        proses=snap.docs.map(function(d){var o=d.data()||{};o.id=d.id;return o});
+        rebuild();refresh();
+      },function(){});
+    });
+  },
+  local:function(){
+    mode='local';var raw=null;
+    try{raw=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+    if(raw&&Array.isArray(raw.rows)){rows=raw.rows;proses=Array.isArray(raw.proses)?raw.proses:[]}
+    else{rows=SAMPLE.map(function(r){return Object.assign({},r)});proses=[]}
+    loaded=true;rebuild();syncChip();refresh();
+  },
+  persist:function(){try{localStorage.setItem(KEY,JSON.stringify({rows:rows,proses:proses}))}catch(e){}},
+  save:function(id,obj){
+    if(this.coll){var ref=id?this.coll.doc(id):this.coll.doc();return ref.set(obj)}
+    obj.id=id||('l'+Date.now().toString(36)+Math.random().toString(36).slice(2,5));
+    var i=rows.findIndex(function(r){return r.id===obj.id});
+    if(i>=0)rows[i]=obj;else rows.push(obj);
+    this.persist();rebuild();refresh();return Promise.resolve();
+  },
+  del:function(id){
+    var self=this,logs=proses.filter(function(p){return p.laporanId===id});
+    if(this.coll)return this.coll.doc(id).delete().then(function(){return Promise.all(logs.map(function(p){return self.delP(p.id)}))});
+    rows=rows.filter(function(r){return r.id!==id});proses=proses.filter(function(p){return p.laporanId!==id});
+    this.persist();rebuild();refresh();return Promise.resolve();
+  },
+  saveP:function(obj){
+    if(this.pcoll)return this.pcoll.doc().set(obj);
+    obj.id='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+    proses.push(obj);this.persist();rebuild();refresh();return Promise.resolve();
+  },
+  delP:function(id){
+    if(this.pcoll)return this.pcoll.doc(id).delete();
+    proses=proses.filter(function(p){return p.id!==id});this.persist();rebuild();refresh();return Promise.resolve();
+  }
+};
+function errMsg(e){return (e&&e.code==='invalid_argument')?'Akun Anda tidak punya izin mengubah data.':'Gagal menyimpan. Coba lagi.'}
+function syncChip(){
+  var t={init:'Memuat data…',shared:loaded?(loadSlow?'Data mungkin belum terbaru':'Data tersimpan bersama'):'Memuat data…',
+    local:'Mode contoh: data hanya di peramban ini',error:'Data bersama tidak dapat dibaca'}[mode];
+  $('#sync').textContent=t;
+}
+var tt;function toast(m){var t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},3200)}
+
+/* ---------- filter ---------- */
+function filtered(kind){
+  var f=F[kind],q=f.q.trim().toLowerCase();
+  var list=rows.filter(function(r){
+    if(r.kategori!==kind)return false;
+    if(f.from&&r.tanggal<f.from)return false;
+    if(f.to&&r.tanggal>f.to)return false;
+    if(f.st&&calc(r).status!==f.st)return false;
+    if(q){var hay=(fmt(r.tanggal)+' '+r.tanggal+' '+(r.asal||'')).toLowerCase();if(hay.indexOf(q)<0)return false}
+    return true;
+  });
+  list.sort(function(a,b){return (a.tanggal<b.tanggal?-1:a.tanggal>b.tanggal?1:(a.createdAt||0)-(b.createdAt||0))*f.sort});
+  return list;
+}
+function rekapRows(from,to){
+  var m={};
+  rows.forEach(function(r){
+    if(from&&r.tanggal<from)return;if(to&&r.tanggal>to)return;
+    (m[r.tanggal]=m[r.tanggal]||[]).push(r);
+  });
+  return Object.keys(m).sort().map(function(d){var s=sums(m[d]);s.tanggal=d;return s});
+}
+function logsFiltered(){
+  var g=F.pr;
+  return validP.filter(function(p){return (!g.from||p.tanggal>=g.from)&&(!g.to||p.tanggal<=g.to)}).sort(function(a,b){
+    return a.tanggal<b.tanggal?1:a.tanggal>b.tanggal?-1:(b.createdAt||0)-(a.createdAt||0)});
+}
+function logsByDay(list){
+  var m={};list.forEach(function(p){var o=m[p.tanggal]=m[p.tanggal]||{tanggal:p.tanggal,koli:0,n:0};o.koli+=num(p.koli);o.n++});
+  return Object.keys(m).sort().reverse().map(function(k){return m[k]});
+}
+function drange(){
+  var t=today();
+  if(D.p==='7')return [addDays(t,-6),''];
+  if(D.p==='30')return [addDays(t,-29),''];
+  if(D.p==='bulan')return [t.slice(0,8)+'01',''];
+  if(D.p==='custom')return [D.from,D.to];
+  return ['',''];
+}
+
+/* ---------- views ---------- */
+var TITLES={
+  dashboard:['Dashboard','Ringkasan barang masuk dan progres proses di Gudang Gramedia Buluh Indah.'],
+  masuk:['Laporan Barang Masuk','Barang Duta TO Buluh Indah yang masuk ke gudang.'],
+  luar:['Laporan Penerimaan STO & Cetul','Penerimaan barang dari STO, Cetul, dan sumber lainnya.'],
+  proses:['Proses Harian','Catat koli yang diproses setiap hari, walaupun tidak ada barang masuk.'],
+  rekap:['Rekapitulasi Laporan','Total per tanggal dari kedua jenis laporan.'],
+  pengaturan:['Pengaturan dan Manajemen Data','Unduh, bersihkan, dan atur data laporan.']
+};
+function mount(){
+  var t=TITLES[route];$('#ttl').textContent=t[0];$('#sub').textContent=t[1];
+  document.querySelectorAll('#nav a').forEach(function(a){
+    if(a.dataset.r===route)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+  });
+  var v=$('#view');
+  if(route==='dashboard'){
+    var r=drange();
+    v.innerHTML='<div class="tools"><div class="chips" role="group" aria-label="Periode tanggal masuk">'+
+      [['all','Semua'],['7','7 hari'],['30','30 hari'],['bulan','Bulan ini']].map(function(c){return '<button class="btn" data-act="dp" data-p="'+c[0]+'" aria-pressed="false">'+c[1]+'</button>'}).join('')+'</div>'+
+      '<span class="sp"></span>'+
+      '<label class="fld sm" for="from">Masuk dari<input id="from" type="date" value="'+r[0]+'"></label>'+
+      '<label class="fld sm" for="to">Sampai<input id="to" type="date" value="'+r[1]+'"></label></div><div id="dbody" class="main"></div>';
+    setChips();
+  }else if(route==='masuk'||route==='luar'){
+    var f=F[route];
+    v.innerHTML='<div class="tools">'+
+      '<label class="fld grow" for="q">Cari tanggal'+(route==='luar'?' atau asal barang':'')+'<input id="q" type="search" placeholder="'+(route==='luar'?'01/11/2026 atau Toko A':'01/11/2026')+'" value="'+esc(f.q)+'"></label>'+
+      '<label class="fld sm" for="from">Dari tanggal<input id="from" type="date" value="'+f.from+'"></label>'+
+      '<label class="fld sm" for="to">Sampai tanggal<input id="to" type="date" value="'+f.to+'"></label>'+
+      '<label class="fld sm" for="st">Status<select id="st"><option value="">Semua status</option><option value="selesai">Selesai</option><option value="proses">Proses</option><option value="belum">Belum Diproses</option></select></label>'+
+      '<span class="sp"></span>'+
+      '<button class="btn" data-exp="xlsx" data-kind="'+route+'">Unduh Excel</button>'+
+      '<button class="btn" data-exp="pdf" data-kind="'+route+'">Unduh PDF</button>'+
+      '<button class="btn primary" data-act="add">Tambah Data</button></div><div id="tbl" class="main"></div>';
+    $('#st').value=f.st;
+  }else if(route==='proses'){
+    var p=F.pr;
+    v.innerHTML='<div class="tools">'+
+      '<label class="fld sm" for="from">Dari tanggal proses<input id="from" type="date" value="'+p.from+'"></label>'+
+      '<label class="fld sm" for="to">Sampai tanggal<input id="to" type="date" value="'+p.to+'"></label>'+
+      '<span class="sp"></span>'+
+      '<button class="btn" data-exp="xlsx" data-kind="proses">Unduh Excel</button>'+
+      '<button class="btn" data-exp="pdf" data-kind="proses">Unduh PDF</button>'+
+      '<button class="btn primary" data-act="padd">Catat Proses</button></div><div id="tbl" class="main"></div>';
+  }else if(route==='rekap'){
+    var g=F.rekap;
+    v.innerHTML='<div class="tools">'+
+      '<label class="fld sm" for="from">Dari tanggal<input id="from" type="date" value="'+g.from+'"></label>'+
+      '<label class="fld sm" for="to">Sampai tanggal<input id="to" type="date" value="'+g.to+'"></label>'+
+      '<span class="sp"></span>'+
+      '<button class="btn" data-exp="xlsx" data-kind="rekap">Unduh Excel</button>'+
+      '<button class="btn" data-exp="pdf" data-kind="rekap">Unduh PDF</button></div><div id="tbl"></div>';
+  }else{v.innerHTML=''}
+  refresh();
+}
+function setChips(){
+  document.querySelectorAll('[data-act="dp"]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.p===D.p))});
+}
+function refresh(){
+  if(route==='dashboard')return dash();
+  if(route==='pengaturan')return settings();
+  var el=$('#tbl');if(!el)return;
+  el.innerHTML=route==='rekap'?rekapHtml():route==='proses'?prosesHtml():tableHtml(route);
+}
+
+/* ---------- dashboard ---------- */
+function card(l,v,u,s,cls){return '<div class="card '+(cls||'')+'"><div class="l">'+l+'</div><div class="v">'+v+(u?'<small>'+u+'</small>':'')+'</div>'+(s?'<div class="s">'+s+'</div>':'')+'</div>'}
+function chartHtml(){
+  var t=today(),days=[],i;for(i=13;i>=0;i--)days.push(addDays(t,-i));
+  var inn=days.map(masukByDate),out=days.map(procByDate);
+  var M=Math.max.apply(null,inn.concat(out,[1]));
+  var steps=[1,2,5,10,20,50,100,200,500,1000,2000,5000];
+  var step=steps.filter(function(s){return M/s<=4})[0]||10000;
+  var top=Math.ceil(M/step)*step;
+  var gw=40,L=38,R=8,T=10,B=26,ph=170,W=L+R+14*gw,H=T+ph+B,bw=14;
+  var y=function(v){return T+ph-(v/top)*ph};
+  var g='';
+  for(var k=0;k<=top;k+=step){g+='<line class="gl" x1="'+L+'" x2="'+(W-R)+'" y1="'+y(k)+'" y2="'+y(k)+'"/><text class="ax" x="'+(L-6)+'" y="'+(y(k)+3)+'" text-anchor="end">'+k+'</text>'}
+  var bars='';
+  days.forEach(function(d,j){
+    var x0=L+j*gw+(gw-2*bw-2)/2,cx=L+j*gw+gw/2;
+    var a=inn[j],b=out[j];
+    if(a>0)bars+='<rect class="c-in" x="'+x0+'" y="'+y(a)+'" width="'+bw+'" height="'+(ph-(y(a)-T))+'" rx="2"><title>'+fmt(d)+': masuk '+a+' koli</title></rect>';
+    if(b>0)bars+='<rect class="c-out" x="'+(x0+bw+2)+'" y="'+y(b)+'" width="'+bw+'" height="'+(ph-(y(b)-T))+'" rx="2"><title>'+fmt(d)+': diproses '+b+' koli</title></rect>';
+    bars+='<text class="'+(d===t?'axb':'ax')+'" x="'+cx+'" y="'+(H-9)+'" text-anchor="middle">'+fmt(d).slice(0,5)+'</text>';
+  });
+  return '<div class="keys"><span style="--k:var(--in)">Barang masuk</span><span style="--k:var(--ok-fill)">Koli diproses</span></div>'+
+    '<div class="chartwrap"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Grafik koli masuk dan diproses 14 hari terakhir">'+g+bars+'</svg></div>';
+}
+function dash(){
+  var el=$('#dbody');if(!el)return;
+  if(!loaded){el.innerHTML='<div class="empty">Memuat data…</div>';return}
+  var rg=drange(),t=today();
+  var list=rows.filter(function(r){return (!rg[0]||r.tanggal>=rg[0])&&(!rg[1]||r.tanggal<=rg[1])});
+  var s=sums(list),all=sums(rows);
+  var sc={selesai:0,proses:0,belum:0};list.forEach(function(r){sc[calc(r).status]++});
+  var out7=0,i;for(i=0;i<7;i++)out7+=procByDate(addDays(t,-i));
+  var avg=out7/7,est=all.left===0?'Selesai':(avg>0?'± '+Math.ceil(all.left/avg)+' hari':'–');
+  var scope=(rg[0]||rg[1])?'Periode: masuk '+(rg[0]?fmt(rg[0]):'awal')+' sampai '+(rg[1]?fmt(rg[1]):'sekarang'):'Seluruh data';
+
+  var h='<section class="sec"><h2>Ringkasan · '+esc(scope)+'</h2><div class="cards">'+
+    card('Total barang masuk',nf(s.total),'koli',nf(s.n)+' laporan')+
+    card('Total Book',nf(s.book),'koli',s.total?Math.round(s.book/s.total*100)+'% dari total':'')+
+    card('Total Nonbook',nf(s.non),'koli',s.total?Math.round(s.non/s.total*100)+'% dari total':'')+
+    card('Sudah diproses',nf(s.done),'koli')+
+    card('Belum diproses',nf(s.left),'koli')+
+    '<div class="card hero"><div class="l">Penyelesaian proses</div><div class="v">'+s.pct+'<small>%</small></div><div class="bar"><i style="width:'+s.pct+'%"></i></div></div>'+
+    '</div></section>';
+
+  h+='<section class="sec"><h2>Aktivitas hari ini · '+dayName(t)+', '+fmt(t)+'</h2><div class="cards">'+
+    card('Masuk hari ini',nf(masukByDate(t)),'koli','','mini')+
+    card('Diproses hari ini',nf(procByDate(t)),'koli','','mini')+
+    card('Rata-rata proses per hari',nf1(avg),'koli','7 hari terakhir','mini')+
+    card('Estimasi sisa selesai',est,'','Sisa '+nf(all.left)+' koli, seluruh data','mini')+
+    '</div></section>';
+
+  h+='<div class="panels">';
+  h+='<section class="panel wide"><h2>Barang masuk dan koli diproses, 14 hari terakhir</h2><p class="sub">Proses yang diisi saat input laporan dihitung pada tanggal masuk. Proses harian dihitung pada tanggal proses.</p>'+chartHtml()+'</section>';
+
+  var bp=s.total?Math.round(s.book/s.total*100):0,np=s.total?100-bp:0;
+  h+='<section class="panel"><h2>Komposisi Book dan Nonbook</h2>'+
+    (s.total?'<div class="stack" role="img" aria-label="Book '+bp+' persen, Nonbook '+np+' persen"><i style="width:'+bp+'%;background:var(--btn)"></i><i style="width:'+np+'%;background:var(--in)"></i></div>'+
+    '<div class="keys"><span style="--k:var(--btn)">Book '+nf(s.book)+' koli ('+bp+'%)</span><span style="--k:var(--in)">Nonbook '+nf(s.non)+' koli ('+np+'%)</span></div>':'<p class="hint">Belum ada data pada periode ini.</p>')+'</section>';
+
+  var scT=Math.max(1,sc.selesai+sc.proses+sc.belum);
+  h+='<section class="panel"><h2>Status laporan</h2>'+['selesai','proses','belum'].map(function(k){
+    return '<div class="lrow"><span>'+pill(k)+'</span><div class="bar"><i class="f-'+k+'" style="width:'+Math.round(sc[k]/scT*100)+'%"></i></div><span class="n">'+nf(sc[k])+' laporan</span></div>';
+  }).join('')+'</section>';
+
+  var bk=[['0–1 hari',0,1,'f-selesai'],['2–3 hari',2,3,'f-proses'],['4–7 hari',4,7,'f-proses'],['Lebih dari 7 hari',8,9999,'f-belum']];
+  var ag=bk.map(function(b){var q=0;list.forEach(function(r){var c=calc(r);if(c.left>0){var a=Math.max(0,diff(r.tanggal,t));if(a>=b[1]&&a<=b[2])q+=c.left}});return q});
+  var agM=Math.max.apply(null,ag.concat([1]));
+  h+='<section class="panel"><h2>Umur barang belum diproses</h2><p class="sub">Dihitung dari tanggal masuk sampai hari ini.</p>'+bk.map(function(b,j){
+    return '<div class="lrow"><span>'+b[0]+'</span><div class="bar"><i class="'+b[3]+'" style="width:'+Math.round(ag[j]/agM*100)+'%"></i></div><span class="n">'+nf(ag[j])+' koli</span></div>';
+  }).join('')+'</section>';
+
+  var a=sums(list.filter(function(r){return r.kategori==='masuk'})),b2=sums(list.filter(function(r){return r.kategori==='luar'}));
+  var srow=function(n,x){return '<tr><td>'+n+'</td><td class="num">'+nf(x.n)+'</td><td class="num">'+nf(x.total)+'</td><td class="num">'+nf(x.done)+'</td><td class="num">'+nf(x.left)+'</td><td class="num">'+x.pct+'%</td></tr>'};
+  h+='<section class="panel"><h2>Berdasarkan sumber</h2><div class="tablewrap" style="border:0"><table style="min-width:0"><thead><tr><th>Sumber</th><th class="num">Laporan</th><th class="num">Total</th><th class="num">Sudah</th><th class="num">Belum</th><th class="num">%</th></tr></thead><tbody>'+
+    srow('Duta TO Buluh Indah',a)+srow('Penerimaan STO &amp; Cetul',b2)+'</tbody></table></div></section>';
+
+  var gm={};list.filter(function(r){return r.kategori==='luar'}).forEach(function(r){
+    var k=(r.asal||'Tanpa nama').trim().toLowerCase();var o=gm[k]=gm[k]||{nama:(r.asal||'Tanpa nama').trim(),rows:[]};o.rows.push(r)});
+  var gl=Object.keys(gm).map(function(k){var x=sums(gm[k].rows);x.nama=gm[k].nama;return x}).sort(function(p,q){return q.total-p.total}).slice(0,8);
+  h+='<section class="panel"><h2>Asal Penerimaan STO &amp; Cetul</h2>'+(gl.length?'<div class="tablewrap" style="border:0"><table style="min-width:0"><thead><tr><th>Asal</th><th class="num">Laporan</th><th class="num">Total</th><th class="num">Belum</th><th class="num">%</th></tr></thead><tbody>'+
+    gl.map(function(x){return '<tr><td>'+esc(x.nama)+'</td><td class="num">'+nf(x.n)+'</td><td class="num">'+nf(x.total)+'</td><td class="num">'+nf(x.left)+'</td><td class="num">'+x.pct+'%</td></tr>'}).join('')+'</tbody></table></div>':'<p class="hint">Belum ada penerimaan STO &amp; Cetul pada periode ini.</p>')+'</section>';
+
+  var rk=rekapRows(rg[0],rg[1]).slice(-10).reverse(),mx=1;
+  rk.forEach(function(x){if(x.total>mx)mx=x.total});
+  h+='<section class="panel"><h2>Progres per tanggal masuk</h2><p class="sub">Panjang batang mengikuti total koli. Bagian hijau sudah diproses.</p>'+(rk.length?rk.map(function(x){
+    return '<div class="prow"><span class="d">'+fmt(x.tanggal).slice(0,5)+'</span><div><div class="bar" style="width:'+Math.max(6,Math.round(x.total/mx*100))+'%"><i style="width:'+x.pct+'%"></i></div></div>'+
+      '<span class="n">'+nf(x.done)+' / '+nf(x.total)+' koli · '+x.pct+'%</span></div>';
+  }).join(''):'<p class="hint">Belum ada data pada periode ini.</p>')+'</section>';
+
+  var pend=outstanding().filter(function(r){return list.indexOf(r)>=0}).slice(0,8);
+  h+='<section class="panel"><h2>Perlu diproses</h2><p class="sub">Urut dari tanggal masuk paling lama.</p>'+(pend.length?pend.map(function(r){var c=calc(r);
+    return '<div class="arow"><div><b>'+fmt(r.tanggal)+'</b> <span class="m">'+dayName(r.tanggal)+' · '+esc(sumber(r))+'</span></div>'+
+      '<div><b>'+nf(c.left)+'</b> <span class="m">koli belum diproses</span></div>'+pill(c.status)+'</div>';
+  }).join(''):'<p class="hint">'+(list.length?'Semua barang pada periode ini sudah diproses.':'Belum ada data.')+'</p>')+'</section>';
+
+  var lg=validP.slice().sort(function(p,q){return p.tanggal<q.tanggal?1:p.tanggal>q.tanggal?-1:(q.createdAt||0)-(p.createdAt||0)}).slice(0,8);
+  h+='<section class="panel"><h2>Proses harian terbaru</h2>'+(lg.length?lg.map(function(p){
+    return '<div class="arow"><div><b>'+fmt(p.tanggal)+'</b> <span class="m">'+dayName(p.tanggal)+'</span><div class="m">Barang masuk '+fmt((byId(p.laporanId)||{}).tanggal)+' · '+esc(sumber(byId(p.laporanId)))+'</div></div><div><b>'+nf(p.koli)+'</b> <span class="m">koli diproses</span></div></div>';
+  }).join(''):'<p class="hint">Belum ada proses harian. Catat lewat menu Proses Harian.</p>')+'</section>';
+
+  h+='</div>';
+  el.innerHTML=h;
+}
+
+/* ---------- tabel laporan ---------- */
+function tableHtml(kind){
+  var luar=kind==='luar',list=filtered(kind),f=F[kind];
+  if(!loaded)return '<div class="tablewrap"><div class="empty">Memuat data…</div></div>';
+  var head='<tr><th>No.</th><th><button data-act="sort" title="Urutkan tanggal">Tanggal Masuk '+(f.sort===1?'▲':'▼')+'</button></th>'+(luar?'<th>Asal Barang</th>':'')+
+    '<th class="num">Nonbook (Koli)</th><th class="num">Book (Koli)</th><th class="num">Total Koli</th><th class="num">Sudah Diproses</th><th class="num">Belum Diproses</th><th>Status</th><th></th></tr>';
+  var cols=luar?10:9;
+  var body=list.map(function(r,i){
+    var c=calc(r),del=pendingDel===r.id;
+    var act=del?'<span class="m">Hapus laporan ini'+(c.logged?' dan '+c.logged+' koli catatan prosesnya':'')+'?</span> <button class="btn sm danger" data-act="del-yes" data-id="'+esc(r.id)+'">Ya, hapus</button> <button class="btn sm" data-act="del-no">Batal</button>'
+      :(c.left>0?'<button class="btn sm" data-act="proc" data-id="'+esc(r.id)+'">Proses</button> ':'')+'<button class="btn sm" data-act="edit" data-id="'+esc(r.id)+'">Edit</button> <button class="btn sm" data-act="del" data-id="'+esc(r.id)+'">Hapus</button>';
+    var note=r.ket?'<span class="note">'+esc(r.ket)+'</span>':'';
+    return '<tr><td>'+(i+1)+'</td><td>'+fmt(r.tanggal)+(r.contoh?'<span class="tag">Contoh</span>':'')+note+'</td>'+
+      (luar?'<td>'+esc(r.asal)+'</td>':'')+
+      '<td class="num">'+nf(c.non)+'</td><td class="num">'+nf(c.book)+'</td><td class="num">'+nf(c.total)+'</td><td class="num">'+nf(c.done)+'</td><td class="num">'+nf(c.left)+'</td><td>'+pill(c.status)+'</td><td><div class="acts">'+act+'</div></td></tr>';
+  }).join('');
+  var s=sums(list);
+  var foot=list.length?'<tfoot><tr><td colspan="'+(luar?3:2)+'">Jumlah ('+list.length+' laporan)</td><td class="num">'+nf(s.non)+'</td><td class="num">'+nf(s.book)+'</td><td class="num">'+nf(s.total)+'</td><td class="num">'+nf(s.done)+'</td><td class="num">'+nf(s.left)+'</td><td colspan="2">'+s.pct+'% selesai</td></tr></tfoot>':'';
+  var empty=list.length?'':'<tr><td colspan="'+cols+'" class="empty">'+(rows.some(function(r){return r.kategori===kind})?'Tidak ada laporan yang cocok dengan filter.':'Belum ada laporan. Klik Tambah Data untuk memasukkan laporan pertama.')+'</td></tr>';
+  return '<div class="tablewrap"><table><thead>'+head+'</thead><tbody>'+body+empty+'</tbody>'+foot+'</table></div>';
+}
+function prosesHtml(){
+  if(!loaded)return '<div class="tablewrap"><div class="empty">Memuat data…</div></div>';
+  var t=today(),out7=0,i;for(i=0;i<7;i++)out7+=procByDate(addDays(t,-i));
+  var all=sums(rows);
+  var cards='<div class="cards">'+card('Diproses hari ini',nf(procByDate(t)),'koli','','mini')+card('Diproses 7 hari terakhir',nf(out7),'koli','','mini')+
+    card('Rata-rata per hari',nf1(out7/7),'koli','7 hari terakhir','mini')+card('Sisa belum diproses',nf(all.left),'koli',nf(outstanding().length)+' laporan menunggu','mini')+'</div>';
+  var list=logsFiltered(),days=logsByDay(list);
+  var dayT='<div class="tablewrap"><table style="min-width:420px"><thead><tr><th>Tanggal Proses</th><th class="num">Koli Diproses</th><th class="num">Jumlah Catatan</th></tr></thead><tbody>'+
+    (days.length?days.map(function(d){return '<tr><td>'+fmt(d.tanggal)+' <span class="m">'+dayName(d.tanggal)+'</span></td><td class="num">'+nf(d.koli)+'</td><td class="num">'+nf(d.n)+'</td></tr>'}).join(''):'<tr><td colspan="3" class="empty">Belum ada proses harian yang dicatat.</td></tr>')+'</tbody></table></div>';
+  var body=list.map(function(p,j){
+    var r=byId(p.laporanId),del=pendingDelP===p.id;
+    var act=del?'<span class="m">Hapus catatan ini?</span> <button class="btn sm danger" data-act="pdel-yes" data-id="'+esc(p.id)+'">Ya, hapus</button> <button class="btn sm" data-act="pdel-no">Batal</button>'
+      :'<button class="btn sm" data-act="pdel" data-id="'+esc(p.id)+'">Hapus</button>';
+    return '<tr><td>'+(j+1)+'</td><td>'+fmt(p.tanggal)+'</td><td>'+fmt(r.tanggal)+'</td><td>'+esc(sumber(r))+'</td><td class="num">'+nf(p.koli)+'</td><td>'+esc(p.ket||'')+'</td><td><div class="acts">'+act+'</div></td></tr>';
+  }).join('');
+  var tot=list.reduce(function(a,p){return a+num(p.koli)},0);
+  var logT='<div class="tablewrap"><table style="min-width:640px"><thead><tr><th>No.</th><th>Tanggal Proses</th><th>Tanggal Masuk Barang</th><th>Sumber</th><th class="num">Koli Diproses</th><th>Keterangan</th><th></th></tr></thead><tbody>'+
+    (list.length?body:'<tr><td colspan="7" class="empty">Belum ada catatan. Klik Catat Proses untuk menambahkan.</td></tr>')+'</tbody>'+
+    (list.length?'<tfoot><tr><td colspan="4">Jumlah ('+list.length+' catatan)</td><td class="num">'+nf(tot)+'</td><td colspan="2"></td></tr></tfoot>':'')+'</table></div>';
+  return cards+'<h2 style="font-size:16px">Rekap per hari</h2>'+dayT+'<h2 style="font-size:16px">Catatan proses</h2>'+logT+
+    '<p class="hint">Angka "sudah diproses" yang diisi saat input laporan tidak tampil di sini. Hanya proses yang dicatat lewat menu ini.</p>';
+}
+function rekapHtml(){
+  if(!loaded)return '<div class="tablewrap"><div class="empty">Memuat data…</div></div>';
+  var g=F.rekap,rk=rekapRows(g.from,g.to);
+  var inr=function(r){return (!g.from||r.tanggal>=g.from)&&(!g.to||r.tanggal<=g.to)};
+  var a=sums(rows.filter(function(r){return inr(r)&&r.kategori==='masuk'})),b=sums(rows.filter(function(r){return inr(r)&&r.kategori==='luar'})),t=sums(rows.filter(inr));
+  var line=function(n,s,strong){return '<tr'+(strong?' style="font-weight:600"':'')+'><td>'+n+'</td><td class="num">'+nf(s.non)+'</td><td class="num">'+nf(s.book)+'</td><td class="num">'+nf(s.total)+'</td><td class="num">'+nf(s.done)+'</td><td class="num">'+nf(s.left)+'</td><td class="num">'+s.pct+'%</td></tr>'};
+  var H='<th class="num">Nonbook</th><th class="num">Book</th><th class="num">Total Koli</th><th class="num">Sudah Diproses</th><th class="num">Belum Diproses</th><th class="num">Progres</th>';
+  var by='<div class="tablewrap"><table style="min-width:640px"><thead><tr><th>Sumber</th>'+H+'</tr></thead><tbody>'+line('Duta TO Buluh Indah',a)+line('Penerimaan STO &amp; Cetul',b)+line('Gabungan',t,true)+'</tbody></table></div>';
+  var body=rk.map(function(x){return line(fmt(x.tanggal),x)}).join('')||'<tr><td colspan="7" class="empty">Belum ada data pada rentang tanggal ini.</td></tr>';
+  var foot=rk.length?'<tfoot><tr><td>Jumlah</td><td class="num">'+nf(t.non)+'</td><td class="num">'+nf(t.book)+'</td><td class="num">'+nf(t.total)+'</td><td class="num">'+nf(t.done)+'</td><td class="num">'+nf(t.left)+'</td><td class="num">'+t.pct+'%</td></tr></tfoot>':'';
+  return by+'<h2 style="font-size:16px;margin:18px 0 10px">Rekap per tanggal masuk</h2><div class="tablewrap"><table style="min-width:640px"><thead><tr><th>Tanggal</th>'+H+'</tr></thead><tbody>'+body+'</tbody>'+foot+'</table></div>';
+}
+function settings(){
+  var ex=rows.filter(function(r){return r.contoh}).length;
+  var where={shared:'Data disimpan di server dan dibagikan ke semua orang yang membuka halaman ini. Perubahan tampil langsung.',
+    local:'Penyimpanan bersama tidak tersedia di tampilan ini, jadi data hanya tersimpan di peramban ini.',
+    error:'Data bersama tidak dapat dibaca saat ini.',init:'Memuat…'}[mode];
+  $('#view').innerHTML='<section class="panel set">'+
+    '<div class="setrow"><div><b>Penyimpanan data</b><p class="hint">'+where+'</p></div><span class="chip">'+nf(rows.length)+' laporan · '+nf(validP.length)+' catatan proses</span></div>'+
+    '<div class="setrow"><div><b>Unduh semua laporan</b><p class="hint">Berisi laporan Duta TO Buluh Indah, Penerimaan STO &amp; Cetul, proses harian, dan rekap per tanggal.</p></div>'+
+      '<div class="acts"><button class="btn" data-exp="xlsx" data-kind="semua">Unduh Excel</button><button class="btn" data-exp="pdf" data-kind="semua">Unduh PDF</button></div></div>'+
+    '<div class="setrow"><div><b>Aturan status</b><div class="legend" style="margin-top:6px">'+pill('selesai')+' semua koli sudah diproses '+pill('proses')+' masih ada yang belum diproses '+pill('belum')+' belum ada yang diproses</div></div></div>'+
+    '<div class="setrow"><div><b>Data contoh</b><p class="hint">'+(ex?nf(ex)+' laporan bertanda Contoh berasal dari brief. Hapus bila sudah mulai memakai data asli.':'Tidak ada data contoh.')+'</p></div>'+
+      (ex?'<button class="btn" data-act="del-sample">Hapus data contoh</button>':'')+'</div>'+
+    '<div class="setrow"><div><b>Hapus semua data</b><p class="hint">Menghapus seluruh laporan dan catatan proses secara permanen.</p></div>'+
+      (rows.length?(confirmAll?'<div class="acts"><span class="hint">Yakin hapus semua data?</span><button class="btn danger" data-act="del-all-yes">Ya, hapus semua</button><button class="btn" data-act="del-all-no">Batal</button></div>':'<button class="btn danger" data-act="del-all">Hapus semua</button>'):'')+'</div>'+
+    '</section>';
+}
+
+/* ---------- form laporan ---------- */
+function openForm(kind,id){
+  editing=id||null;
+  var r=id?byId(id):null;
+  $('#ftitle').textContent=r?'Edit Data':'Tambah Data';
+  $('#f-tanggal').value=r?r.tanggal:today();
+  $('#f-kategori').value=r?r.kategori:kind;
+  $('#f-asal').value=r?(r.asal||''):'';
+  $('#f-book').value=r?num(r.book):0;$('#f-non').value=r?num(r.nonbook):0;$('#f-done').value=r?num(r.diproses):0;
+  $('#f-ket').value=r?(r.ket||''):'';
+  var lg=r?(pmap[r.id]||0):0,info=$('#f-logged');
+  info.hidden=!lg;if(lg)info.textContent='Proses harian yang sudah dicatat untuk laporan ini: '+nf(lg)+' koli. Jumlah ini ditambahkan ke "sudah diproses".';
+  $('#ferr').hidden=true;calcForm();
+  $('#modal').hidden=false;$('#f-tanggal').focus();
+}
+function calcForm(){
+  var lg=editing?(pmap[editing]||0):0;
+  var t=num($('#f-book').value)+num($('#f-non').value),d=num($('#f-done').value)+lg;
+  $('#f-total').value=t;$('#f-belum').value=Math.max(0,t-d);
+  $('#f-asal-w').hidden=$('#f-kategori').value!=='luar';
+}
+function ferr(m){var e=$('#ferr');e.textContent=m;e.hidden=false}
+function closeForm(){$('#modal').hidden=true;editing=null}
+$('#f').addEventListener('input',calcForm);
+$('#f-cancel').addEventListener('click',closeForm);
+$('#modal').addEventListener('mousedown',function(e){if(e.target===this)closeForm()});
+$('#f').addEventListener('submit',function(e){
+  e.preventDefault();
+  var k=$('#f-kategori').value,t=$('#f-tanggal').value,asal=$('#f-asal').value.trim();
+  var book=num($('#f-book').value),non=num($('#f-non').value),done=num($('#f-done').value);
+  var lg=editing?(pmap[editing]||0):0;
+  if(!t)return ferr('Isi tanggal barang masuk.');
+  if(k==='luar'&&!asal)return ferr('Isi asal barang untuk Penerimaan STO & Cetul.');
+  if(book+non<1)return ferr('Isi jumlah Book atau Nonbook minimal 1 koli.');
+  if(done+lg>book+non)return ferr('Sudah diproses ('+done+(lg?' + '+lg+' proses harian':'')+') melebihi total koli ('+(book+non)+').');
+  var old=editing?byId(editing):null;
+  var obj={kategori:k,tanggal:t,asal:k==='luar'?asal:'',book:book,nonbook:non,diproses:done,ket:$('#f-ket').value.trim(),
+    contoh:false,createdAt:(old&&old.createdAt)||Date.now(),updatedAt:Date.now()};
+  var id=editing;closeForm();
+  store.save(id,obj).then(function(){toast(id?'Perubahan disimpan.':'Laporan ditambahkan.')},function(er){toast(errMsg(er))});
+});
+
+/* ---------- form proses harian ---------- */
+function alloc(n){
+  var res=[],rest=n;
+  outstanding().forEach(function(r){
+    if(rest<=0)return;var l=calc(r).left,take=Math.min(l,rest);
+    if(take>0){res.push({r:r,koli:take});rest-=take}
+  });
+  return {parts:res,rest:rest};
+}
+function pTargets(sel){
+  var o=outstanding();
+  $('#p-target').innerHTML=o.length?o.map(function(r){return '<option value="'+esc(r.id)+'">'+fmt(r.tanggal)+' · '+esc(sumber(r))+' · sisa '+calc(r).left+' koli</option>'}).join(''):'<option value="">Tidak ada barang yang menunggu</option>';
+  if(sel)$('#p-target').value=sel;
+}
+function pInfo(){
+  var n=num($('#p-koli').value),m=$('#p-mode').value,all=sums(rows).left,h;
+  $('#p-target-w').hidden=m!=='manual';
+  if(m==='manual'){
+    var r=byId($('#p-target').value),l=r?calc(r).left:0;
+    h=r?'Sisa laporan ini: '+nf(l)+' koli.'+(n>l?' Jumlah melebihi sisa.':''):'Tidak ada barang yang menunggu diproses.';
+  }else{
+    if(!all)h='Tidak ada barang yang menunggu diproses.';
+    else if(!n)h='Total menunggu diproses: '+nf(all)+' koli. Isi jumlah koli untuk melihat pembagiannya.';
+    else if(n>all)h='Jumlah melebihi total yang menunggu ('+nf(all)+' koli).';
+    else h='Akan dibagi ke: '+alloc(n).parts.map(function(x){return fmt(x.r.tanggal).slice(0,5)+' ('+esc(sumber(x.r))+') '+x.koli+' koli'}).join(', ')+'.';
+  }
+  $('#p-info').innerHTML=h;
+}
+function openProses(id){
+  $('#p-tanggal').value=today();$('#p-koli').value='';$('#p-ket').value='';
+  $('#p-mode').value=id?'manual':'auto';pTargets(id);
+  $('#perr').hidden=true;pInfo();$('#pm').hidden=false;$('#p-koli').focus();
+}
+function perr(m){var e=$('#perr');e.textContent=m;e.hidden=false}
+function closeProses(){$('#pm').hidden=true}
+$('#pf').addEventListener('input',pInfo);
+$('#pf').addEventListener('change',pInfo);
+$('#p-cancel').addEventListener('click',closeProses);
+$('#pm').addEventListener('mousedown',function(e){if(e.target===this)closeProses()});
+$('#pf').addEventListener('submit',function(e){
+  e.preventDefault();
+  var t=$('#p-tanggal').value,n=num($('#p-koli').value),m=$('#p-mode').value,ket=$('#p-ket').value.trim(),parts;
+  if(!t)return perr('Isi tanggal proses.');
+  if(n<1)return perr('Isi jumlah koli yang diproses, minimal 1.');
+  if(m==='manual'){
+    var r=byId($('#p-target').value);
+    if(!r||calc(r).left<1)return perr('Pilih laporan yang masih punya sisa.');
+    if(n>calc(r).left)return perr('Jumlah ('+n+') melebihi sisa laporan ('+calc(r).left+' koli).');
+    parts=[{r:r,koli:n}];
+  }else{
+    var all=sums(rows).left;
+    if(!all)return perr('Tidak ada barang yang menunggu diproses.');
+    if(n>all)return perr('Jumlah ('+n+') melebihi total yang menunggu ('+all+' koli).');
+    parts=alloc(n).parts;
+  }
+  closeProses();
+  Promise.all(parts.map(function(x){
+    return store.saveP({laporanId:x.r.id,tanggal:t,koli:x.koli,ket:ket,createdAt:Date.now()});
+  })).then(function(){toast(n+' koli dicatat diproses pada '+fmt(t)+'.')},function(er){toast(errMsg(er))});
+});
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Escape')return;
+  if(!$('#modal').hidden)closeForm();
+  if(!$('#pm').hidden)closeProses();
+});
+
+/* ---------- ekspor ---------- */
+var HM=['No.','Tanggal Masuk','Nonbook (Koli)','Book (Koli)','Total Koli','Sudah Diproses','Belum Diproses','Status','Keterangan'];
+var HL=['No.','Tanggal Masuk','Asal Barang','Nonbook (Koli)','Book (Koli)','Total Koli','Sudah Diproses','Belum Diproses','Status','Keterangan'];
+var HR=['Tanggal','Nonbook','Book','Total Koli','Sudah Diproses','Belum Diproses','Progres (%)'];
+function sheetReport(kind,list,name){
+  var luar=kind==='luar',s=sums(list);
+  var body=list.map(function(r,i){var c=calc(r);
+    var row=[i+1,fmt(r.tanggal)];if(luar)row.push(r.asal||'');
+    return row.concat([c.non,c.book,c.total,c.done,c.left,ST[c.status],r.ket||'']);
+  });
+  var foot=['','Jumlah'];if(luar)foot.push('');
+  foot=foot.concat([s.non,s.book,s.total,s.done,s.left,s.pct+'% selesai','']);
+  return {name:name,title:name,head:luar?HL:HM,body:body,foot:foot};
+}
+function sheetRekap(from,to){
+  var rk=rekapRows(from,to),t=sums(rows.filter(function(r){return (!from||r.tanggal>=from)&&(!to||r.tanggal<=to)}));
+  return {name:'Rekap per Tanggal',title:'Rekap per Tanggal Masuk',head:HR,
+    body:rk.map(function(x){return [fmt(x.tanggal),x.non,x.book,x.total,x.done,x.left,x.pct]}),
+    foot:['Jumlah',t.non,t.book,t.total,t.done,t.left,t.pct]};
+}
+function sheetsProses(list){
+  var days=logsByDay(list),tot=list.reduce(function(a,p){return a+num(p.koli)},0);
+  return [
+    {name:'Proses per Hari',title:'Proses Harian per Hari',head:['Tanggal Proses','Koli Diproses','Jumlah Catatan'],
+      body:days.map(function(d){return [fmt(d.tanggal),d.koli,d.n]}),foot:['Jumlah',tot,list.length]},
+    {name:'Catatan Proses',title:'Catatan Proses Harian',head:['No.','Tanggal Proses','Tanggal Masuk Barang','Sumber','Koli Diproses','Keterangan'],
+      body:list.map(function(p,i){var r=byId(p.laporanId);return [i+1,fmt(p.tanggal),r?fmt(r.tanggal):'',sumber(r),num(p.koli),p.ket||'']}),
+      foot:['','','','Jumlah',tot,'']}
+  ];
+}
+function sheetsFor(kind){
+  if(kind==='masuk')return [sheetReport('masuk',filtered('masuk'),'Duta TO Buluh Indah')];
+  if(kind==='luar')return [sheetReport('luar',filtered('luar'),'Penerimaan STO & Cetul')];
+  if(kind==='rekap')return [sheetRekap(F.rekap.from,F.rekap.to)];
+  if(kind==='proses')return sheetsProses(logsFiltered());
+  var all=function(k){return rows.filter(function(r){return r.kategori===k}).sort(function(a,b){return a.tanggal<b.tanggal?-1:a.tanggal>b.tanggal?1:0})};
+  var allLogs=validP.slice().sort(function(a,b){return a.tanggal<b.tanggal?1:a.tanggal>b.tanggal?-1:0});
+  return [sheetReport('masuk',all('masuk'),'Duta TO Buluh Indah'),sheetReport('luar',all('luar'),'Penerimaan STO & Cetul')].concat(sheetsProses(allLogs),[sheetRekap('','')]);
+}
+function doExport(kind,fmtType){
+  var sheets=sheetsFor(kind);
+  var base={masuk:'laporan-duta-to-buluh-indah',luar:'laporan-penerimaan-sto-cetul',proses:'proses-harian',rekap:'rekapitulasi-laporan',semua:'laporan-gudang-buluh-indah'}[kind]+'-'+today();
+  var data;
+  try{
+    if(fmtType==='xlsx'){
+      if(!window.XLSX)return toast('Pustaka Excel belum termuat. Coba lagi sebentar lagi.');
+      var wb=XLSX.utils.book_new();
+      sheets.forEach(function(s){
+        var ws=XLSX.utils.aoa_to_sheet([s.head].concat(s.body,[s.foot]));
+        ws['!cols']=s.head.map(function(h){return {wch:Math.max(12,h.length+2)}});
+        XLSX.utils.book_append_sheet(wb,ws,s.name.slice(0,31));
+      });
+      data=XLSX.write(wb,{bookType:'xlsx',type:'array'});
+    }else{
+      if(!(window.jspdf&&window.jspdf.jsPDF))return toast('Pustaka PDF belum termuat. Coba lagi sebentar lagi.');
+      var doc=new window.jspdf.jsPDF({orientation:'landscape',unit:'pt',format:'a4'});
+      sheets.forEach(function(s,i){
+        if(i>0)doc.addPage();
+        doc.setFontSize(14);doc.text('Gudang Gramedia Buluh Indah - '+s.title,40,40);
+        doc.setFontSize(9);doc.text('Dicetak '+fmt(today()),40,56);
+        doc.autoTable({startY:68,head:[s.head],body:s.body,foot:[s.foot],styles:{fontSize:8.5,cellPadding:4},
+          headStyles:{fillColor:[196,22,31]},footStyles:{fillColor:[240,235,233],textColor:[32,26,25]},margin:{left:40,right:40}});
+      });
+      data=doc.output('arraybuffer');
+    }
+  }catch(er){return toast('Gagal membuat file. Coba lagi.')}
+  var p=(window.claude&&window.claude.use)?window.claude.use('downloads'):Promise.resolve(null);
+  p.catch(function(){return null}).then(function(dl){
+    if(!dl)return toast('Unduhan tidak tersedia di tampilan ini.');
+    return dl.save({filename:base+'.'+fmtType,data:data}).then(function(){toast('File disimpan.')},function(er){
+      if(er&&er.code!=='declined')toast('File tidak dapat diunduh di tampilan ini.');
+    });
+  });
+}
+
+/* ---------- event ---------- */
+function filt(){return route==='dashboard'?D:route==='proses'?F.pr:F[route]}
+$('#view').addEventListener('input',function(e){
+  var id=e.target.id,o=filt();
+  if(!o)return;
+  if(id==='q')o.q=e.target.value;
+  else if(id==='from'||id==='to'){
+    o[id]=e.target.value;
+    if(route==='dashboard'){
+      if(D.p!=='custom'){var cur=drange();D.from=id==='from'?e.target.value:cur[0];D.to=id==='to'?e.target.value:cur[1]}
+      D.p='custom';setChips();
+    }
+  }else return;
+  refresh();
+});
+$('#view').addEventListener('change',function(e){if(e.target.id==='st'){F[route].st=e.target.value;refresh()}});
+$('#view').addEventListener('click',function(e){
+  var b=e.target.closest('[data-act],[data-exp]');if(!b)return;
+  if(b.dataset.exp)return doExport(b.dataset.kind,b.dataset.exp);
+  var a=b.dataset.act,id=b.dataset.id;
+  if(a==='add')openForm(route);
+  else if(a==='edit')openForm(route,id);
+  else if(a==='proc')openProses(id);
+  else if(a==='padd')openProses();
+  else if(a==='sort'){F[route].sort*=-1;refresh()}
+  else if(a==='dp'){
+    D.p=b.dataset.p;var r=drange();D.from=r[0];D.to=r[1];
+    $('#from').value=r[0];$('#to').value=r[1];setChips();refresh();
+  }
+  else if(a==='del'){pendingDel=id;refresh()}
+  else if(a==='del-no'){pendingDel=null;refresh()}
+  else if(a==='del-yes'){pendingDel=null;store.del(id).then(function(){toast('Laporan dihapus.')},function(er){toast(errMsg(er))});refresh()}
+  else if(a==='pdel'){pendingDelP=id;refresh()}
+  else if(a==='pdel-no'){pendingDelP=null;refresh()}
+  else if(a==='pdel-yes'){pendingDelP=null;store.delP(id).then(function(){toast('Catatan proses dihapus.')},function(er){toast(errMsg(er))});refresh()}
+  else if(a==='del-sample'){
+    var ids=rows.filter(function(r){return r.contoh}).map(function(r){return r.id});
+    Promise.all(ids.map(function(i){return store.del(i)})).then(function(){toast('Data contoh dihapus.')},function(er){toast(errMsg(er))});
+  }
+  else if(a==='del-all'){confirmAll=true;settings()}
+  else if(a==='del-all-no'){confirmAll=false;settings()}
+  else if(a==='del-all-yes'){
+    confirmAll=false;
+    var rs=rows.slice(),ps=proses.slice();
+    Promise.all(rs.map(function(r){return store.del(r.id)}).concat(ps.map(function(p){return store.delP(p.id)}))).then(function(){toast('Semua data dihapus.')},function(er){toast(errMsg(er))});
+    settings();
+  }
+});
+function onHash(){
+  var h=(location.hash||'').replace('#','');
+  route=TITLES[h]?h:'dashboard';pendingDel=null;pendingDelP=null;confirmAll=false;mount();
+}
+window.addEventListener('hashchange',onHash);
+onHash();syncChip();store.init();
+})();
+</script>
+
+</body></html>
