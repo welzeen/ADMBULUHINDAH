@@ -310,6 +310,9 @@ td .note{display:block;font-size:13px;color:var(--muted);max-width:230px}
   .actions{position:sticky;bottom:calc(-18px - var(--safe-b));background:var(--surface);padding:10px 0 2px;margin-top:2px}
   .actions .btn{flex:1;min-height:48px;font-size:16px}
 }
+/* pengunjung: hanya lihat dan unduh */
+body.ro [data-act="add"],body.ro [data-act="padd"],body.ro [data-act="edit"],body.ro [data-act="del"],body.ro [data-act="proc"],body.ro [data-act="restore"],body.ro td.c-act,body.ro th.c-act{display:none!important}
+#authbtn{min-height:32px;border-radius:99px;padding:4px 14px}
 @media (prefers-reduced-motion:no-preference){
   .btn{transition:background .15s,filter .15s,border-color .15s}
   .bar i,.mp i{transition:width .3s}
@@ -327,7 +330,7 @@ td .note{display:block;font-size:13px;color:var(--muted);max-width:230px}
     <div class="top">
       <div class="mbrand"><span class="logo"></span><b>Gudang Buluh Indah</b></div>
       <div class="th"><h1 id="ttl"></h1><p id="sub"></p></div>
-      <div class="tr"><span class="chip" id="dnow"></span><span class="chip" id="sync">Memuat data…</span></div>
+      <div class="tr"><span class="chip" id="dnow"></span><span class="chip" id="sync">Memuat data…</span><span class="chip" id="role" hidden></span><button class="btn sm" id="authbtn" type="button" hidden>Masuk admin</button></div>
     </div>
     <div id="view"></div>
   </main>
@@ -389,6 +392,19 @@ td .note{display:block;font-size:13px;color:var(--muted);max-width:230px}
     </div>
   </form>
 </div>
+<div class="overlay" id="lm" hidden>
+  <form class="sheet form" id="lf" novalidate>
+    <h2>Masuk admin</h2>
+    <p class="hint">Hanya admin yang bisa menambah, mengubah, dan menghapus data. Pengunjung tidak perlu masuk.</p>
+    <label for="l-email">Email<input id="l-email" type="email" autocomplete="username" inputmode="email" autocapitalize="none"></label>
+    <label for="l-pass">Kata sandi<input id="l-pass" type="password" autocomplete="current-password"></label>
+    <p class="err" id="lerr" hidden></p>
+    <div class="actions">
+      <button type="button" class="btn" id="l-cancel">Batal</button>
+      <button type="submit" class="btn primary" id="l-ok">Masuk</button>
+    </div>
+  </form>
+</div>
 <div class="toast" id="toast" hidden role="status"></div>
 
 <!-- ============ KONFIGURASI DATABASE (opsional tapi disarankan) ============
@@ -397,6 +413,9 @@ td .note{display:block;font-size:13px;color:var(--muted);max-width:230px}
      aplikasi tetap jalan dan menyimpan data di peramban masing-masing.
      Langkah lengkap ada di PETUNJUK.md -->
 <script>
+/* Email admin yang boleh mengubah data (harus sama dengan aturan Firestore).
+   Kosongkan [] jika semua akun yang login dianggap admin. */
+window.ADMIN_EMAILS=["adm10231@gmail.com"];
 window.FIREBASE_CONFIG={
   apiKey:"AIzaSyDF4WNWzUn5i3zp92PXYAtv5j0mGDlPku0",
   authDomain:"admbuluhindah.firebaseapp.com",
@@ -408,6 +427,7 @@ window.FIREBASE_CONFIG={
 </script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
@@ -488,6 +508,14 @@ function getDb(){
     return Promise.resolve(fs);
   }catch(e){return Promise.reject(e)}
 }
+var user=null,authOn=false;
+function isAdminUser(u){
+  if(!u)return false;
+  var L=(window.ADMIN_EMAILS||[]).map(function(e){return String(e).toLowerCase()}).filter(function(e){return e&&!/isi_/i.test(e)});
+  return !L.length||L.indexOf(String(u.email||'').toLowerCase())>=0;
+}
+function canEdit(){return mode==='local'||(mode==='shared'&&isAdminUser(user))}
+var DENIED={code:'denied'};
 var store={
   coll:null,pcoll:null,
   init:function(){
@@ -496,6 +524,7 @@ var store={
     getDb().catch(function(){return null}).then(function(db){
       if(!db){self.local();clearTimeout(timer);return}
       mode='shared';self.coll=db.collection('laporan');self.pcoll=db.collection('proses');
+      try{authOn=true;firebase.auth().onAuthStateChanged(function(u){user=u;syncChip();refresh()})}catch(e){authOn=false}
       self.coll.onSnapshot(function(snap){
         rows=snap.docs.map(function(d){var o=d.data()||{};o.id=d.id;return o});
         if(!snap.metadata.fromCache||!loaded){loaded=true;loadSlow=false;clearTimeout(timer)}
@@ -517,6 +546,7 @@ var store={
   },
   persist:function(){try{localStorage.setItem(KEY,JSON.stringify({rows:rows,proses:proses}))}catch(e){toast('Peramban menolak menyimpan data. Nonaktifkan mode privat.')}},
   save:function(id,obj){
+    if(!canEdit())return Promise.reject(DENIED);
     if(this.coll){var ref=id?this.coll.doc(id):this.coll.doc();return ref.set(obj)}
     obj.id=id||('l'+Date.now().toString(36)+Math.random().toString(36).slice(2,5));
     var i=rows.findIndex(function(r){return r.id===obj.id});
@@ -524,12 +554,14 @@ var store={
     this.persist();rebuild();refresh();return Promise.resolve();
   },
   del:function(id){
+    if(!canEdit())return Promise.reject(DENIED);
     var self=this,logs=proses.filter(function(p){return p.laporanId===id});
     if(this.coll)return this.coll.doc(id).delete().then(function(){return Promise.all(logs.map(function(p){return self.delP(p.id)}))});
     rows=rows.filter(function(r){return r.id!==id});proses=proses.filter(function(p){return p.laporanId!==id});
     this.persist();rebuild();refresh();return Promise.resolve();
   },
   saveP:function(obj,id){
+    if(!canEdit())return Promise.reject(DENIED);
     if(this.pcoll)return (id?this.pcoll.doc(id):this.pcoll.doc()).set(obj);
     obj.id=id||('p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6));
     var j=proses.findIndex(function(p){return p.id===obj.id});
@@ -537,16 +569,43 @@ var store={
     proses.push(obj);this.persist();rebuild();refresh();return Promise.resolve();
   },
   delP:function(id){
+    if(!canEdit())return Promise.reject(DENIED);
     if(this.pcoll)return this.pcoll.doc(id).delete();
     proses=proses.filter(function(p){return p.id!==id});this.persist();rebuild();refresh();return Promise.resolve();
   }
 };
-function errMsg(e){return (e&&e.code==='invalid_argument')?'Akun Anda tidak punya izin mengubah data.':'Gagal menyimpan. Coba lagi.'}
+function errMsg(e){var c=e&&e.code;return (c==='invalid_argument'||c==='permission-denied'||c==='denied')?'Hanya admin yang boleh mengubah data. Masuk sebagai admin dulu.':'Gagal menyimpan. Coba lagi.'}
 function syncChip(){
   var t={init:'Memuat data…',shared:loaded?(loadSlow?'Data mungkin belum terbaru':'Data tersimpan bersama'):'Memuat data…',
     local:'Tersimpan di peramban ini saja',error:'Data bersama tidak dapat dibaca'}[mode];
   var el=$('#sync');el.textContent=t;
   el.className='chip '+((mode==='shared'&&loaded&&!loadSlow)?'ok':(mode==='error'?'bd':'wn'));
+  applyRole();
+}
+function applyRole(){
+  var ro=!canEdit();
+  document.body.classList.toggle('ro',ro);
+  var rl=$('#role'),ab=$('#authbtn');
+  if(mode==='shared'&&authOn){
+    ab.hidden=false;rl.hidden=false;
+    if(user){
+      ab.textContent='Keluar';
+      rl.textContent=isAdminUser(user)?'Admin: '+(user.email||''):'Akun bukan admin';
+      rl.className='chip '+(isAdminUser(user)?'ok':'bd');
+    }else{
+      ab.textContent='Masuk admin';rl.textContent='Mode lihat saja';rl.className='chip';
+    }
+  }else{ab.hidden=true;rl.hidden=true}
+}
+function openLogin(){
+  $('#lerr').hidden=true;$('#l-pass').value='';$('#lm').hidden=false;
+  setTimeout(function(){$('#l-email').focus()},60);
+}
+function guardEdit(){
+  if(canEdit())return true;
+  if(user)toast('Akun ini bukan admin, jadi tidak bisa mengubah data.');
+  else{toast('Masuk sebagai admin untuk mengubah data.');openLogin()}
+  return false;
 }
 var tt;function toast(m){var t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},3200)}
 
@@ -788,7 +847,7 @@ function tableHtml(kind){
   var luar=kind==='luar',list=filtered(kind),f=F[kind];
   if(!loaded)return '<div class="tablewrap"><div class="empty">Memuat data…</div></div>';
   var head='<tr><th>No.</th><th><button data-act="sort" title="Urutkan tanggal">Tanggal Masuk '+(f.sort===1?'▲':'▼')+'</button></th>'+(luar?'<th>Asal Barang</th>':'')+
-    '<th class="num">Nonbook (Koli)</th><th class="num">Book (Koli)</th><th class="num">Total Koli</th><th class="num">Sudah Diproses</th><th class="num">Belum Diproses</th><th>Status</th><th></th></tr>';
+    '<th class="num">Nonbook (Koli)</th><th class="num">Book (Koli)</th><th class="num">Total Koli</th><th class="num">Sudah Diproses</th><th class="num">Belum Diproses</th><th>Status</th><th class="c-act"></th></tr>';
   var cols=luar?10:9;
   var body=list.map(function(r,i){
     var c=calc(r),del=pendingDel===r.id;
@@ -820,7 +879,7 @@ function prosesHtml(){
     return '<tr><td class="c-no">'+(j+1)+'</td><td class="c-h">'+fmt(p.tanggal)+'</td><td data-label="Tanggal masuk barang">'+fmt(r.tanggal)+'</td><td data-label="Sumber">'+esc(sumber(r))+'</td><td class="num" data-label="Koli diproses">'+nf(p.koli)+'</td><td data-label="Keterangan">'+esc(p.ket||'')+'</td><td class="c-act"><div class="acts">'+act+'</div></td></tr>';
   }).join('');
   var tot=list.reduce(function(a,p){return a+num(p.koli)},0);
-  var logT='<div class="tablewrap"><table class="rt" style="min-width:640px"><thead><tr><th>No.</th><th>Tanggal Proses</th><th>Tanggal Masuk Barang</th><th>Sumber</th><th class="num">Koli Diproses</th><th>Keterangan</th><th></th></tr></thead><tbody>'+
+  var logT='<div class="tablewrap"><table class="rt" style="min-width:640px"><thead><tr><th>No.</th><th>Tanggal Proses</th><th>Tanggal Masuk Barang</th><th>Sumber</th><th class="num">Koli Diproses</th><th>Keterangan</th><th class="c-act"></th></tr></thead><tbody>'+
     (list.length?body:'<tr><td colspan="7" class="empty">Belum ada catatan. Klik Catat Proses untuk menambahkan.</td></tr>')+'</tbody>'+
     (list.length?'<tfoot><tr><td class="c-h" colspan="4">Jumlah ('+list.length+' catatan)</td><td class="num" data-label="Koli diproses">'+nf(tot)+'</td><td colspan="2"></td></tr></tfoot>':'')+'</table></div>';
   return cards+'<h2 style="font-size:22px">Rekap per hari</h2>'+dayT+'<h2 style="font-size:22px">Catatan proses</h2>'+logT+
@@ -840,7 +899,7 @@ function rekapHtml(){
 }
 function settings(){
   var ex=rows.filter(function(r){return r.contoh}).length;
-  var where={shared:'Data disimpan di server dan dibagikan ke semua orang yang membuka halaman ini. Perubahan tampil langsung.',
+  var where={shared:'Data disimpan di server dan dibagikan ke semua orang yang membuka halaman ini. Perubahan tampil langsung. Hanya admin yang bisa mengubah data.',
     local:'Database belum dihubungkan, jadi data tersimpan permanen di peramban ini saja (tidak dibagi ke perangkat lain). Isi FIREBASE_CONFIG di index.html untuk berbagi data. Gunakan Cadangan data agar aman.',
     error:'Data bersama tidak dapat dibaca saat ini.',init:'Memuat…'}[mode];
   $('#view').innerHTML='<section class="panel set">'+
@@ -848,12 +907,12 @@ function settings(){
     '<div class="setrow"><div><b>Unduh semua laporan</b><p class="hint">Berisi laporan Duta TO Buluh Indah, Penerimaan STO &amp; Cetul, proses harian, dan rekap per tanggal.</p></div>'+
       '<div class="acts"><button class="btn" data-exp="xlsx" data-kind="semua">Excel</button><button class="btn" data-exp="pdf" data-kind="semua">PDF</button><button class="btn" data-exp="csv" data-kind="semua">CSV</button></div></div>'+
     '<div class="setrow"><div><b>Cadangan data</b><p class="hint">Simpan seluruh data ke satu file JSON, atau pulihkan dari file cadangan. Pulihkan menggabungkan data: ID yang sama ditimpa, sisanya ditambahkan.</p></div>'+
-      '<div class="acts"><button class="btn" data-act="backup">Cadangkan (JSON)</button><button class="btn" data-act="restore">Pulihkan dari file</button><input type="file" id="rfile" accept="application/json,.json" hidden></div></div>'+
+      '<div class="acts"><button class="btn" data-act="backup">Cadangkan (JSON)</button>'+(canEdit()?'<button class="btn" data-act="restore">Pulihkan dari file</button>':'')+'<input type="file" id="rfile" accept="application/json,.json" hidden></div></div>'+
     '<div class="setrow"><div><b>Aturan status</b><div class="legend" style="margin-top:6px">'+pill('selesai')+' semua koli sudah diproses '+pill('proses')+' masih ada yang belum diproses '+pill('belum')+' belum ada yang diproses</div></div></div>'+
-    '<div class="setrow"><div><b>Data contoh</b><p class="hint">'+(ex?nf(ex)+' laporan bertanda Contoh berasal dari brief. Hapus bila sudah mulai memakai data asli.':'Tidak ada data contoh.')+'</p></div>'+
-      (ex?'<button class="btn" data-act="del-sample">Hapus data contoh</button>':'')+'</div>'+
-    '<div class="setrow"><div><b>Hapus semua data</b><p class="hint">Menghapus seluruh laporan dan catatan proses secara permanen.</p></div>'+
-      (rows.length?(confirmAll?'<div class="acts"><span class="hint">Yakin hapus semua data?</span><button class="btn danger" data-act="del-all-yes">Ya, hapus semua</button><button class="btn" data-act="del-all-no">Batal</button></div>':'<button class="btn danger" data-act="del-all">Hapus semua</button>'):'')+'</div>'+
+    (canEdit()?'<div class="setrow"><div><b>Data contoh</b><p class="hint">'+(ex?nf(ex)+' laporan bertanda Contoh berasal dari brief. Hapus bila sudah mulai memakai data asli.':'Tidak ada data contoh.')+'</p></div>'+
+      (ex?'<button class="btn" data-act="del-sample">Hapus data contoh</button>':'')+'</div>':'')+
+    (canEdit()?'<div class="setrow"><div><b>Hapus semua data</b><p class="hint">Menghapus seluruh laporan dan catatan proses secara permanen.</p></div>'+
+      (rows.length?(confirmAll?'<div class="acts"><span class="hint">Yakin hapus semua data?</span><button class="btn danger" data-act="del-all-yes">Ya, hapus semua</button><button class="btn" data-act="del-all-no">Batal</button></div>':'<button class="btn danger" data-act="del-all">Hapus semua</button>'):'')+'</div>':'')+
     '</section>';
 }
 
@@ -1030,7 +1089,7 @@ function doBackup(){
   toast('Cadangan diunduh.');
 }
 function doRestore(f){
-  if(!f)return;
+  if(!f||!guardEdit())return;
   var rd=new FileReader(),isD=function(s){return typeof s==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s)};
   rd.onerror=function(){toast('File tidak dapat dibaca.')};
   rd.onload=function(){
@@ -1105,6 +1164,7 @@ $('#view').addEventListener('click',function(e){
   var b=e.target.closest('[data-act],[data-exp]');if(!b)return;
   if(b.dataset.exp)return doExport(b.dataset.kind,b.dataset.exp);
   var a=b.dataset.act,id=b.dataset.id;
+  if(['add','edit','proc','padd','del','del-yes','pdel','pdel-yes','del-sample','del-all','del-all-yes','restore'].indexOf(a)>=0&&!guardEdit())return;
   if(a==='backup')return doBackup();
   if(a==='restore')return $('#rfile').click();
   if(a==='add')openForm(route);
@@ -1145,6 +1205,26 @@ $('#nav').innerHTML=NAV.map(function(n){return '<a href="#'+n[0]+'" data-r="'+n[
 document.querySelectorAll('.logo').forEach(function(e){e.innerHTML=icon('box')});
 $('#dnow').textContent=dayName(today())+', '+fmt(today());
 window.addEventListener('hashchange',onHash);
+$('#authbtn').addEventListener('click',function(){
+  if(user){firebase.auth().signOut().then(function(){toast('Anda sudah keluar.')},function(){toast('Gagal keluar. Coba lagi.')})}
+  else openLogin();
+});
+$('#l-cancel').addEventListener('click',function(){$('#lm').hidden=true});
+$('#lm').addEventListener('click',function(e){if(e.target===this)this.hidden=true});
+$('#lf').addEventListener('submit',function(e){
+  e.preventDefault();
+  var em=$('#l-email').value.trim(),pw=$('#l-pass').value,er=$('#lerr'),ok=$('#l-ok');
+  if(!em||!pw){er.textContent='Isi email dan kata sandi.';er.hidden=false;return}
+  er.hidden=true;ok.disabled=true;ok.textContent='Memeriksa…';
+  firebase.auth().signInWithEmailAndPassword(em,pw).then(function(){
+    $('#lm').hidden=true;toast('Berhasil masuk.');
+  },function(x){
+    var c=x&&x.code,m={'auth/invalid-credential':'Email atau kata sandi salah.','auth/wrong-password':'Email atau kata sandi salah.','auth/user-not-found':'Email atau kata sandi salah.',
+      'auth/invalid-email':'Format email tidak valid.','auth/too-many-requests':'Terlalu banyak percobaan. Tunggu beberapa menit lalu coba lagi.',
+      'auth/network-request-failed':'Tidak ada koneksi internet.','auth/operation-not-allowed':'Login Email/Password belum diaktifkan di Firebase.'}[c];
+    er.textContent=m||'Gagal masuk. Coba lagi.';er.hidden=false;
+  }).then(function(){ok.disabled=false;ok.textContent='Masuk'});
+});
 onHash();syncChip();store.init();
 })();
 </script>
