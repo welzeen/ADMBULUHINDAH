@@ -507,6 +507,63 @@ body{font-family:var(--font-body)}
   .scene .cloud{transform:translateX(200px)}
 }
 
+
+/* ===== fitur tambahan: tren, kalender, donat, lencana ===== */
+.bu-line{stroke-dasharray:none}
+.enter .bu-line{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.3s ease-out .35s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.heat{display:flex;gap:8px}
+.hdays{display:grid;grid-template-rows:repeat(7,minmax(0,1fr));gap:4px;padding-top:18px;font-size:11px;color:var(--muted);line-height:1}
+.hdays span{display:flex;align-items:center}
+.hcol{flex:1;min-width:0}
+.hmon{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;height:14px;margin-bottom:4px;font-size:11px;color:var(--muted);line-height:14px}
+.hmon span{overflow:visible;white-space:nowrap}
+.hgrid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,auto);grid-template-columns:repeat(12,minmax(0,1fr));gap:4px}
+.hm{display:block;aspect-ratio:1;border-radius:5px;background:var(--track)}
+.hm.fut{background:transparent;border:1px dashed var(--line)}
+.hm.l1{background:var(--ok-fill);opacity:.3}.hm.l2{background:var(--ok-fill);opacity:.55}.hm.l3{background:var(--ok-fill);opacity:.8}.hm.l4{background:var(--ok-fill)}
+.enter .hm{animation:hmpop .45s cubic-bezier(.2,.8,.3,1) both;animation-delay:calc(var(--i)*7ms + .2s)}
+@keyframes hmpop{from{opacity:0;transform:scale(.3)}}
+.hfoot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 12px;margin-top:12px;font-size:13px;color:var(--muted)}
+.hleg{display:inline-flex;align-items:center;gap:4px}
+.hleg .hm{width:12px;height:12px;border-radius:3px}
+.donut{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.donut svg{width:150px;height:150px;flex:none}
+.dn-n{font-family:var(--font-head);font-size:25px;font-weight:900;fill:var(--fg)}
+.dn-l{font-size:9px;fill:var(--muted)}
+.enter .dn{animation:dnin 1s ease-out both}
+@keyframes dnin{from{opacity:0}}
+.dleg{flex:1;min-width:170px;display:flex;flex-direction:column;gap:10px}
+.dl{display:grid;grid-template-columns:12px 1fr auto 44px;gap:10px;align-items:center}
+.dl .dd{width:12px;height:12px;border-radius:4px}
+.dl b{font-family:var(--font-head);font-size:20px}
+.dl .m{text-align:right}
+.badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.bd{display:flex;gap:14px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--head)}
+.bd .medal{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:26px;flex:none;background:var(--track);filter:grayscale(1);opacity:.55}
+.bd.on{background:linear-gradient(135deg,var(--red-soft),var(--surface));border-color:var(--btn)}
+.bd.on .medal{filter:none;opacity:1;background:radial-gradient(circle at 30% 25%,#fff3c4,#ffc94a 55%,#f08a24);box-shadow:0 6px 16px rgba(240,138,36,.4),inset 0 0 0 3px rgba(255,255,255,.55)}
+.enter .bd.on .medal{animation:medal .7s cubic-bezier(.2,1.4,.4,1) both;animation-delay:calc(var(--i)*90ms + .3s)}
+@keyframes medal{from{transform:scale(0) rotate(-40deg)}}
+.bt{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+.bt b{font-family:var(--font-head);font-size:17px}
+.bt .m{font-size:12.5px}
+.got{align-self:flex-start;margin-top:6px;font-size:12px;font-weight:800;color:var(--ok);background:var(--ok-bg);padding:2px 10px;border-radius:99px}
+/* confetti saat semua selesai */
+.confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.confetti i{position:absolute;top:-12px;width:7px;height:12px;border-radius:2px;opacity:0;animation:fall linear 2 both}
+@keyframes fall{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(330px) rotate(540deg)}}
+#themebtn{font-weight:700}
+@media (max-width:700px){
+  .tools .btn[data-act="wa"]{grid-column:1/-1;order:8}
+  .heat{gap:6px}.hgrid,.hmon{gap:3px}
+  .donut{justify-content:center}
+  .badges{grid-template-columns:minmax(0,1fr)}
+  .hero .top .tr{gap:6px}
+}
+@media print{.confetti,#themebtn,.hfoot .hleg{display:none!important}.bu-line{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.enter .bu-line{stroke-dasharray:none;animation:none}.confetti{display:none}}
+
 @media (prefers-reduced-motion:no-preference){
   .btn{transition:background .15s,filter .15s,border-color .15s}
   .bar i,.mp i{transition:width .3s}
@@ -599,8 +656,8 @@ body{font-family:var(--font-body)}
   <ellipse cx="-18" cy="208" rx="5" ry="3" fill="#ff8fa3" opacity=".55"/><ellipse cx="18" cy="208" rx="5" ry="3" fill="#ff8fa3" opacity=".55"/>
   <path d="M-4 210 Q0 217 4 210Z" fill="#e5576f"/>
  </g>
- <g class="say"><path d="M-92 146 h86 q10 0 10 10 v8 q0 10 -10 10 h-30 l-10 10 l-2 -10 h-44 q-10 0 -10 -10 v-8 q0 -10 10 -10z" fill="#fff"/>
-  <text x="-49" y="167" text-anchor="middle" font-size="12.5" font-weight="800" fill="#3b2f86" style="font-family:var(--font-head)">Semangat!</text></g>
+ <g class="say"><path d="M-114 146 h108 q10 0 10 10 v8 q0 10 -10 10 h-26 l-10 10 l-2 -10 h-70 q-10 0 -10 -10 v-8 q0 -10 10 -10z" fill="#fff"/>
+  <text id="saytxt" x="-60" y="167" text-anchor="middle" font-size="12.5" font-weight="800" fill="#3b2f86" style="font-family:var(--font-head)">Semangat!</text></g>
  <path class="sp" d="M52 176 l2.5 6 6 2.5 -6 2.5 -2.5 6 -2.5 -6 -6 -2.5 6 -2.5z" fill="#fff"/>
  <path class="sp" style="animation-delay:-1.3s" d="M-56 190 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z" fill="var(--lamp)"/>
 </g>
@@ -609,7 +666,7 @@ body{font-family:var(--font-body)}
     <div class="top">
       <div class="mbrand"><span class="logo"></span><b>Gudang Buluh Indah</b></div>
       <div class="th"><h1 id="ttl"></h1><p id="sub"></p></div>
-      <div class="tr"><span class="chip" id="dnow"></span><span class="chip" id="sync">Memuat data…</span><span class="chip" id="role" hidden></span><button class="btn sm" id="authbtn" type="button" hidden>Masuk admin</button></div>
+      <div class="tr"><span class="chip" id="dnow"></span><span class="chip" id="sync">Memuat data…</span><span class="chip" id="role" hidden></span><button class="btn sm" id="themebtn" type="button" aria-label="Ganti tema tampilan">Tema: Otomatis</button><button class="btn sm" id="authbtn" type="button" hidden>Masuk admin</button></div>
     </div></div>
     <div id="view"></div>
   </main>
@@ -951,7 +1008,7 @@ function mount(){
     var r=drange();
     v.innerHTML='<div class="tools"><div class="chips" role="group" aria-label="Periode tanggal masuk">'+
       [['all','Semua'],['7','7 hari'],['30','30 hari'],['bulan','Bulan ini']].map(function(c){return '<button class="btn" data-act="dp" data-p="'+c[0]+'" aria-pressed="false">'+c[1]+'</button>'}).join('')+'</div>'+
-      '<span class="sp"></span><button class="btn" data-act="print">Cetak / PDF</button>'+
+      '<span class="sp"></span><button class="btn" data-act="wa">Salin untuk WhatsApp</button><button class="btn" data-act="print">Cetak / PDF</button>'+
       '<label class="fld sm" for="from">Masuk dari<input id="from" type="date" value="'+r[0]+'"></label>'+
       '<label class="fld sm" for="to">Sampai<input id="to" type="date" value="'+r[1]+'"></label></div><div id="dbody" class="main"></div>';
     setChips();
@@ -1042,6 +1099,143 @@ function chartHtml(){
   return '<div class="keys"><span style="--k:var(--in)">Barang masuk</span><span style="--k:var(--ok-fill)">Koli diproses</span></div>'+
     '<div class="chartwrap"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Grafik koli masuk dan diproses per hari">'+g+bars+'</svg></div>';
 }
+/* ---------- analitik tambahan ---------- */
+var MON=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+var lastReport='';
+function dayMaps(){
+  var mm={},pp={};
+  rows.forEach(function(r){var c=calc(r);mm[r.tanggal]=(mm[r.tanggal]||0)+c.total;pp[r.tanggal]=(pp[r.tanggal]||0)+num(r.diproses)});
+  validP.forEach(function(p){pp[p.tanggal]=(pp[p.tanggal]||0)+num(p.koli)});
+  return {mm:mm,pp:pp};
+}
+function completionDate(r){
+  var c=calc(r);if(!(c.total>0)||c.left>0)return null;
+  var cum=num(r.diproses);if(cum>=c.total)return r.tanggal;
+  var ps=validP.filter(function(p){return p.laporanId===r.id}).sort(function(a,b){return a.tanggal<b.tanggal?-1:a.tanggal>b.tanggal?1:0});
+  for(var i=0;i<ps.length;i++){cum+=num(ps[i].koli);if(cum>=c.total)return ps[i].tanggal<r.tanggal?r.tanggal:ps[i].tanggal}
+  return r.tanggal;
+}
+function leadStats(list){
+  var n=0,sum=0,ok3=0;
+  list.forEach(function(r){var cd=completionDate(r);if(cd){var d=Math.max(0,diff(r.tanggal,cd));n++;sum+=d;if(d<=3)ok3++}});
+  return {n:n,avg:n?sum/n:0,ok3:n?Math.round(ok3/n*100):0};
+}
+function streakDays(mp){
+  var t=today(),i=(mp.pp[t]||0)>0?0:1,n=0;
+  while(i<400&&(mp.pp[addDays(t,-i)]||0)>0){n++;i++}
+  return n;
+}
+function niceTop(M){
+  var steps=[1,2,5,10,20,50,100,200,500,1000,2000,5000,10000];
+  var step=steps.filter(function(s){return M/s<=4})[0]||20000;
+  return {step:step,top:Math.max(step,Math.ceil(M/step)*step)};
+}
+function burnUpHtml(mp){
+  var t=today(),mob=window.innerWidth<700,N=mob?21:30;
+  var W=mob?340:760,H=mob?210:250,L=38,R=14,T=16,B=26,pw=W-L-R,ph=H-T-B;
+  var start=addDays(t,-(N-1)),cm=0,cp=0,i;
+  Object.keys(mp.mm).forEach(function(d){if(d<start)cm+=mp.mm[d]});
+  Object.keys(mp.pp).forEach(function(d){if(d<start)cp+=mp.pp[d]});
+  var A=[],Bv=[],days=[];
+  for(i=0;i<N;i++){var d=addDays(start,i);cm+=mp.mm[d]||0;cp+=mp.pp[d]||0;days.push(d);A.push(cm);Bv.push(Math.min(cp,cm))}
+  var nt=niceTop(Math.max.apply(null,A.concat([1])));
+  var x=function(j){return L+(N===1?0:j/(N-1)*pw)},y=function(v){return T+ph-(v/nt.top)*ph};
+  var g='',k;
+  for(k=0;k<=nt.top;k+=nt.step)g+='<line class="gl" x1="'+L+'" x2="'+(W-R)+'" y1="'+y(k)+'" y2="'+y(k)+'"/><text class="ax" x="'+(L-6)+'" y="'+(y(k)+4)+'" text-anchor="end">'+k+'</text>';
+  var pa=A.map(function(v,j){return x(j).toFixed(1)+','+y(v).toFixed(1)}).join(' ');
+  var pb=Bv.map(function(v,j){return x(j).toFixed(1)+','+y(v).toFixed(1)}).join(' ');
+  var gap=pa+' '+Bv.map(function(v,j){return x(N-1-j).toFixed(1)+','+y(Bv[N-1-j]).toFixed(1)}).join(' ');
+  var lab='',every=Math.ceil(N/(mob?4:6));
+  days.forEach(function(d,j){if((j%every===0&&N-1-j>=Math.ceil(every/2))||j===N-1)lab+='<text class="'+(d===t?'axb':'ax')+'" x="'+x(j)+'" y="'+(H-8)+'" text-anchor="'+(j===0?'start':(j===N-1?'end':'middle'))+'">'+fmt(d).slice(0,5)+'</text>'});
+  var back=A[N-1]-Bv[N-1];
+  return '<div class="keys"><span style="--k:var(--btn)">Total masuk</span><span style="--k:var(--ok-fill)">Sudah diproses</span><span style="--k:var(--warn-fill)">Menunggu (backlog): '+nf(back)+' koli</span></div>'+
+    '<div class="chartwrap"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Grafik kumulatif barang masuk dan diproses '+N+' hari terakhir. Menunggu '+back+' koli." style="min-width:0">'+g+
+    '<polygon points="'+gap+'" fill="var(--warn-fill)" opacity=".22"/>'+
+    '<polyline class="bu-line" pathLength="1" points="'+pa+'" fill="none" stroke="var(--btn)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>'+
+    '<polyline class="bu-line" pathLength="1" points="'+pb+'" fill="none" stroke="var(--ok-fill)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>'+
+    '<circle cx="'+x(N-1)+'" cy="'+y(A[N-1])+'" r="4.5" fill="var(--btn)"/><circle cx="'+x(N-1)+'" cy="'+y(Bv[N-1])+'" r="4.5" fill="var(--ok-fill)"/>'+lab+'</svg></div>';
+}
+function heatHtml(mp){
+  var t=today(),W=12,dow=(new Date(parse(t)).getUTCDay()+6)%7;
+  var start=addDays(addDays(t,-dow),-(W-1)*7),cells=[],mx=0,total=0,best=null,w,d;
+  for(w=0;w<W;w++)for(d=0;d<7;d++){
+    var dt=addDays(start,w*7+d),v=dt>t?-1:(mp.pp[dt]||0);
+    cells.push([dt,v]);if(v>mx)mx=v;if(v>0){total+=v;if(!best||v>best[1])best=[dt,v]}
+  }
+  var cs=cells.map(function(c,i){
+    var v=c[1],lv=v<0?'fut':(v===0?'l0':'l'+Math.min(4,Math.ceil(v/mx*4)));
+    return '<i class="hm '+lv+'" style="--i:'+i+'" title="'+dayName(c[0])+', '+fmt(c[0])+': '+(v<0?'belum tiba':nf(Math.max(v,0))+' koli diproses')+'"></i>';
+  }).join('');
+  var mons='',prev=-1;
+  for(w=0;w<W;w++){var m=parse(addDays(start,w*7+3));var mo=new Date(m).getUTCMonth();mons+='<span>'+(mo!==prev?MON[mo]:'')+'</span>';prev=mo}
+  var dl=['Sen','','Rab','','Jum','','Min'].map(function(x){return '<span>'+x+'</span>'}).join('');
+  return '<div class="heat"><div class="hdays">'+dl+'</div><div class="hcol"><div class="hmon">'+mons+'</div><div class="hgrid">'+cs+'</div></div></div>'+
+    '<div class="hfoot"><span>'+(best?nf(total)+' koli diproses. Hari tersibuk '+fmt(best[0])+' ('+nf(best[1])+' koli).':'Belum ada proses pada 12 minggu terakhir.')+'</span>'+
+    '<span class="hleg">Sedikit <i class="hm l0"></i><i class="hm l1"></i><i class="hm l2"></i><i class="hm l3"></i><i class="hm l4"></i> Banyak</span></div>';
+}
+function donutHtml(sc,n){
+  var r=46,C=2*Math.PI*r,off=0,segs=[['selesai','var(--ok-fill)','Selesai'],['proses','var(--warn-fill)','Sedang proses'],['belum','var(--bad-fill)','Belum diproses']];
+  var arcs='<circle cx="60" cy="60" r="'+r+'" fill="none" stroke="var(--track)" stroke-width="16"/>',leg='';
+  segs.forEach(function(sg){
+    var c=sc[sg[0]],len=n?c/n*C:0;
+    if(len>0)arcs+='<circle class="dn" cx="60" cy="60" r="'+r+'" fill="none" stroke="'+sg[1]+'" stroke-width="16" stroke-dasharray="'+len.toFixed(2)+' '+(C-len).toFixed(2)+'" stroke-dashoffset="'+(-off).toFixed(2)+'" transform="rotate(-90 60 60)"/>';
+    off+=len;
+    leg+='<div class="dl"><span class="dd" style="background:'+sg[1]+'"></span><span>'+sg[2]+'</span><b>'+nf(c)+'</b><span class="m">'+(n?Math.round(c/n*100):0)+'%</span></div>';
+  });
+  return '<div class="donut"><svg viewBox="0 0 120 120" role="img" aria-label="Status laporan: '+sc.selesai+' selesai, '+sc.proses+' proses, '+sc.belum+' belum">'+arcs+
+    '<text x="60" y="58" text-anchor="middle" class="dn-n">'+nf(n)+'</text><text x="60" y="74" text-anchor="middle" class="dn-l">laporan</text></svg><div class="dleg">'+leg+'</div></div>';
+}
+function badgesHtml(){
+  var all=sums(rows),ld=leadStats(rows),mp=dayMaps(),st=streakDays(mp);
+  var B=[
+    ['\ud83d\ude80','Langkah Pertama','Catat laporan pertama',rows.length>=1,Math.min(1,rows.length/1),rows.length+' / 1'],
+    ['\ud83d\udce6','Seratus Koli','100 koli sudah diproses',all.done>=100,Math.min(1,all.done/100),nf(Math.min(all.done,100))+' / 100'],
+    ['\ud83c\udfc6','Lima Ratus Koli','500 koli sudah diproses',all.done>=500,Math.min(1,all.done/500),nf(Math.min(all.done,500))+' / 500'],
+    ['\u2728','Gudang Bersih','Semua laporan selesai',all.total>0&&all.left===0,all.total?all.done/all.total:0,all.pct+'% selesai'],
+    ['\u23f1\ufe0f','Tepat Waktu','90% laporan selesai ≤ 3 hari (min. 3 laporan)',ld.n>=3&&ld.ok3>=90,Math.min(1,ld.ok3/90),ld.n+' selesai · '+ld.ok3+'%'],
+    ['\ud83d\udd25','Beruntun 7 Hari','Ada proses 7 hari berturut-turut',st>=7,Math.min(1,st/7),st+' / 7 hari']
+  ];
+  var open=B.filter(function(b){return b[3]}).length;
+  return {open:open,total:B.length,html:'<div class="badges">'+B.map(function(b,i){
+    return '<div class="bd'+(b[3]?' on':'')+'" style="--i:'+i+'"><div class="medal" aria-hidden="true">'+b[0]+'</div><div class="bt"><b>'+b[1]+'</b><span class="m">'+b[2]+'</span>'+
+      (b[3]?'<span class="got">Terbuka</span>':'<div class="mp wide" style="width:100%;margin-top:6px"><i class="f-proses" style="width:'+Math.round(b[4]*100)+'%"></i></div><span class="m">'+b[5]+'</span>')+'</div></div>';
+  }).join('')+'</div>'};
+}
+function confettiHtml(){
+  var cols=['#ffd27a','#ff8fa3','#7ee3a1','#9fb4ff','#fff'],h='<div class="confetti" aria-hidden="true">';
+  for(var i=0;i<22;i++)h+='<i style="left:'+(3+i*4.4)+'%;background:'+cols[i%5]+';animation-delay:'+((i*137)%900)/1000+'s;animation-duration:'+(2.4+(i%5)*.35)+'s"></i>';
+  return h+'</div>';
+}
+function setSay(msg){var e=document.getElementById('saytxt');if(e)e.textContent=msg||'Semangat!'}
+function countUp(root){
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  root.querySelectorAll('.bn-v,.card .v').forEach(function(el){
+    var tn=el.firstChild;if(!tn||tn.nodeType!==3)return;
+    var txt=tn.nodeValue.trim();if(!/^[\d.]+(,\d+)?$/.test(txt))return;
+    var dec=(txt.split(',')[1]||'').length,val=parseFloat(txt.replace(/\./g,'').replace(',','.'));
+    if(!isFinite(val)||val===0)return;
+    var t0=null;
+    (function step(ts){
+      if(t0===null)t0=ts;var k=Math.min(1,(ts-t0)/900),e=1-Math.pow(1-k,3);
+      tn.nodeValue=k<1?(dec?nf1(val*e):nf(Math.round(val*e))):txt;
+      if(k<1)requestAnimationFrame(step);
+    })(performance.now());
+  });
+}
+function copyText(t){
+  if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t);
+  return new Promise(function(ok,no){
+    try{var a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;opacity:0';document.body.appendChild(a);a.select();
+      var r=document.execCommand('copy');a.remove();r?ok():no()}catch(e){no(e)}
+  });
+}
+var THL={auto:'Otomatis',light:'Terang',dark:'Gelap'},THI={auto:'\u25d0',light:'\u2600',dark:'\u263e'};
+function getTheme(){try{return localStorage.getItem('gbi-theme')||'auto'}catch(e){return 'auto'}}
+function applyTheme(t){
+  var r=document.documentElement;if(t==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',t);
+  var b=document.getElementById('themebtn');if(b)b.textContent='Tema: '+THL[t];
+}
+
 function chartN(){return window.innerWidth<700?7:14}
 function ageBadge(a){
   var c=a>7?'a-bad':(a>3?'a-warn':'a-ok');
@@ -1055,11 +1249,12 @@ function pgRow(name,x,sub){
 function dash(){
   var el=$('#dbody');if(!el)return;
   if(!loaded){el.innerHTML='<div class="empty">Memuat data…</div>';return}
-  var rg=drange(),t=today(),now=new Date();
+  var rg=drange(),t=today(),now=new Date(),mp=dayMaps();
   var list=rows.filter(function(r){return (!rg[0]||r.tanggal>=rg[0])&&(!rg[1]||r.tanggal<=rg[1])});
   var s=sums(list),all=sums(rows);
   var sc={selesai:0,proses:0,belum:0};list.forEach(function(r){sc[calc(r).status]++});
-  var out7=0,i;for(i=0;i<7;i++)out7+=procByDate(addDays(t,-i));
+  var out7=0,in7=0,i;for(i=0;i<7;i++){out7+=(mp.pp[addDays(t,-i)]||0);in7+=(mp.mm[addDays(t,-i)]||0)}
+  var lead=leadStats(list),streak=streakDays(mp);
   var avg=out7/7,estDays=(s.left>0&&avg>0)?Math.ceil(s.left/avg):0;
   var scope=(rg[0]||rg[1])?'Periode: barang masuk '+(rg[0]?fmt(rg[0]):'awal')+' sampai '+(rg[1]?fmt(rg[1]):'sekarang'):'Periode: seluruh data';
   var pend=list.filter(function(r){return calc(r).left>0}).sort(function(a,b){return a.tanggal<b.tanggal?-1:a.tanggal>b.tanggal?1:0});
@@ -1079,7 +1274,7 @@ function dash(){
   var h='<p class="hint meta">'+esc(scope)+' · Diperbarui '+dayName(t)+', '+fmt(t)+' pukul '+pad(now.getHours())+'.'+pad(now.getMinutes())+'</p>';
 
   /* 1. status keseluruhan */
-  h+='<section class="sec"><div class="banner"><div class="bn-ring">'+ring(s.pct)+'</div><div class="bn-txt">'+
+  h+='<section class="sec"><div class="banner">'+((s.total>0&&s.left===0&&!roadDone)?confettiHtml():'')+'<div class="bn-ring">'+ring(s.pct)+'</div><div class="bn-txt">'+
     '<div class="verdict '+vc+'">'+vt+'</div>'+
     '<div class="bn-l" style="margin-top:10px">Penyelesaian proses</div>'+
     '<div class="bn-v">'+nf(s.done)+'<small>dari '+nf(s.total)+' koli sudah diproses</small></div>'+
@@ -1092,6 +1287,13 @@ function dash(){
     card('Laporan selesai',nf(sc.selesai),'dari '+nf(s.n),nf(sc.proses)+' proses · '+nf(sc.belum)+' belum','','list','g')+
     card('Diproses hari ini',nf(procByDate(t)),'koli','Masuk hari ini '+nf(masukByDate(t)),'','truck','n')+
     card('Rata-rata proses',nf1(avg),'koli/hari','7 hari terakhir','','trend','b')+
+    '</div><div class="cards six" style="margin-top:12px">'+
+    card('Rata-rata lama proses',lead.n?nf1(lead.avg):'–',lead.n?'hari':'',lead.n?'dari '+nf(lead.n)+' laporan selesai':'Belum ada laporan selesai','','clock','b')+
+    card('Selesai ≤ 3 hari',lead.n?lead.ok3+'%':'–','',lead.n?'Ketepatan proses':'Belum ada data','','check','g')+
+    card('Proses beruntun',nf(streak),'hari','Hari berturut-turut ada proses','','trend','a')+
+    card('Proses 7 hari',nf(out7),'koli','Rata-rata '+nf1(out7/7)+' koli per hari','','truck','n')+
+    card('Masuk 7 hari',nf(in7),'koli','Rata-rata '+nf1(in7/7)+' koli per hari','','box','r')+
+    card('Backlog',nf(all.left),'koli','Sisa seluruh data','','list','a')+
     '</div></section>';
 
   h+='<div class="panels">';
@@ -1129,6 +1331,13 @@ function dash(){
       (more?'<p style="margin:12px 0 0"><button class="btn sm noprint" data-act="dall">'+(D.all?'Tampilkan lebih sedikit':'Tampilkan semua ('+nf(det.length)+' laporan)')+'</button></p>':''):
       '<p class="hint">Belum ada data pada periode ini.</p>')+'</section>';
 
+  /* 4b. tren, kalender, donat, pencapaian */
+  var bdg=badgesHtml();
+  h+='<section class="panel wide"><h2>Tren kumulatif</h2><p class="sub">Selisih antara garis ungu (total masuk) dan hijau (diproses) adalah barang yang masih menunggu. Semakin rapat, semakin baik.</p>'+(all.total?burnUpHtml(mp):'<p class="hint">Belum ada data.</p>')+'</section>';
+  h+='<section class="panel"><h2>Kalender aktivitas</h2><p class="sub">Koli diproses per hari, 12 minggu terakhir. Makin hijau pekat, makin ramai.</p>'+heatHtml(mp)+'</section>';
+  h+='<section class="panel"><h2>Status laporan</h2><p class="sub">Jumlah laporan menurut tahap proses pada periode ini.</p>'+donutHtml(sc,s.n)+'</section>';
+  h+='<section class="panel wide"><h2>Pencapaian</h2><p class="sub">'+bdg.open+' dari '+bdg.total+' lencana terbuka. Dihitung dari seluruh data gudang.</p>'+bdg.html+'</section>';
+
   /* 5. aktivitas */
   var N=chartN(),inT=0,outT=0;for(i=0;i<N;i++){inT+=masukByDate(addDays(t,-i));outT+=procByDate(addDays(t,-i))}
   h+='<section class="panel wide"><h2>Aktivitas '+N+' hari terakhir</h2><p class="sub">Masuk '+nf(inT)+' koli, diproses '+nf(outT)+' koli. Proses yang diisi saat input laporan dihitung pada tanggal masuk; proses harian pada tanggal proses.</p>'+((inT+outT)?chartHtml():'<p class="hint">Belum ada barang masuk atau proses pada '+N+' hari terakhir.</p>')+'</section>';
@@ -1139,7 +1348,21 @@ function dash(){
     '<div class="keys"><span style="--k:var(--btn)">Book '+nf(s.book)+' koli ('+bp+'%)</span><span style="--k:var(--in)">Nonbook '+nf(s.non)+' koli ('+(100-bp)+'%)</span></div></section>';
 
   h+='</div>';
+  /* teks WhatsApp */
+  var wa=['*LAPORAN GUDANG BULUH INDAH*',dayName(t)+', '+fmt(t),scope,'',
+    '\ud83d\udce6 Total masuk: '+nf(s.total)+' koli ('+nf(s.n)+' laporan)',
+    '\u2705 Sudah diproses: '+nf(s.done)+' koli ('+s.pct+'%)',
+    '\u23f3 Belum diproses: '+nf(s.left)+' koli',
+    '\ud83d\udea6 Status: *'+vt+'*',msg,'','*Progres per sumber*',
+    '\u2022 Duta TO Buluh Indah: '+a.pct+'% ('+nf(a.done)+'/'+nf(a.total)+' koli)',
+    '\u2022 STO & Cetul: '+b2.pct+'% ('+nf(b2.done)+'/'+nf(b2.total)+' koli)'];
+  if(lead.n)wa.push('','*Kecepatan*','\u2022 Rata-rata lama proses: '+nf1(lead.avg)+' hari','\u2022 Selesai \u2264 3 hari: '+lead.ok3+'%');
+  if(pend.length){wa.push('','*Perlu perhatian*');pend.slice(0,5).forEach(function(r){var c=calc(r);wa.push('\u2022 '+fmt(r.tanggal).slice(0,5)+' '+sumber(r)+': sisa '+nf(c.left)+' koli ('+Math.max(0,diff(r.tanggal,t))+' hari)')});
+    if(pend.length>5)wa.push('\u2022 dan '+(pend.length-5)+' laporan lain')}
+  lastReport=wa.join('\n');
+  setSay(!s.total?'Ayo mulai!':(s.left===0?'Semua beres!':(old7>0?'Cek yang lama!':(s.pct>=80?'Hampir beres!':'Ayo proses!'))));
   el.innerHTML=h;
+  if(!roadDone)countUp(el);
   roadDone=true;
 }
 
@@ -1466,6 +1689,7 @@ $('#view').addEventListener('click',function(e){
   if(b.dataset.exp)return doExport(b.dataset.kind,b.dataset.exp);
   var a=b.dataset.act,id=b.dataset.id;
   if(a==='print')return window.print();
+  if(a==='wa'){copyText(lastReport).then(function(){toast('Ringkasan disalin. Tempel di WhatsApp.')},function(){toast('Gagal menyalin. Coba lagi.')});return}
   if(a==='dall'){D.all=!D.all;return dash()}
   if(['add','edit','proc','padd','del','del-yes','pdel','pdel-yes','del-sample','del-all','del-all-yes','restore'].indexOf(a)>=0&&!guardEdit())return;
   if(a==='backup')return doBackup();
@@ -1528,6 +1752,12 @@ $('#lf').addEventListener('submit',function(e){
     er.textContent=m||'Gagal masuk. Coba lagi.';er.hidden=false;
   }).then(function(){ok.disabled=false;ok.textContent='Masuk'});
 });
+$('#themebtn').addEventListener('click',function(){
+  var o=['auto','light','dark'],n=o[(o.indexOf(getTheme())+1)%3];
+  try{localStorage.setItem('gbi-theme',n)}catch(e){}
+  applyTheme(n);
+});
+applyTheme(getTheme());
 onHash();syncChip();store.init();
 })();
 </script>
